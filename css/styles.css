@@ -1,0 +1,268 @@
+:root {
+    --primary-color: #0077ff;
+    --text-color: #fff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: url('fond.png') center/cover fixed no-repeat;
+    box-sizing: border-box;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+    align-items: center;
+    font-weight: bold;
+    flex-wrap: wrap;
+}
+
+header {
+    line-height: normal !important;
+    background: #1f4f78ec;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
+    color: #fff;    
+}
+
+h1 {
+    color: #ffffff;
+    margin: 9px !important;
+    font-size: 40px;
+
+}
+
+[class*="col-"],
+[class^="col-"] {
+    padding: 5px;
+}
+
+.image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.image-container img {
+    min-width: 100%;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.button-container {
+    width: 100%;
+    text-align: center;
+}
+
+.button-container button:hover {
+    background: #2780da;
+}
+
+.images-cards figure {
+    position: relative;
+}
+
+.images-cards img {
+    height: 240px;
+}
+
+.images-cards figure figcaption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    font-size: 44px;
+    cursor: pointer;
+    opacity: 0;
+    transition: 0.3s all ease;
+}
+
+.images-cards figure figcaption:hover {
+    opacity: 1;
+}
+
+#Images .add-new-photo {
+    display: flex;
+    border: 4px dashed #fff;
+    height: 100%;
+    min-height: 240px;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s all ease;
+}
+
+#Images .add-new-photo.first:hover {
+    background: rgba(255, 255, 255, 0.17);
+}
+
+#add-photo-container input {
+    display: none;
+}
+
+select, input[type="text"], textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.boton-modal label, .boton-borrar, .boton-modala {
+    padding: 10px 12px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border-radius: 5px;
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    border: none;
+}
+
+.my-button2 {
+    padding: 10px 15px;
+    background-color: var(--primary-color, #0077ff);
+    color: var(--text-color, #fff);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.boton-modal label {
+    right: 20px;
+}
+
+.boton-borrar {
+    background-color: #ff0000;
+    margin-bottom: 5px;
+    left: 150px;
+}
+
+.boton-modala {
+    left: 20px;
+    margin-bottom: 5px;
+}
+
+.boton-modal label:hover, .boton-borrar:hover, .boton-modala:hover, .my-button2:hover {
+    background-color: #a5a5a5;
+}
+
+#btn-modal {
+    display: none;
+}
+
+.container-modal {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(144, 148, 150, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+#btn-modal:checked ~ .container-modal {
+    display: flex;
+}
+
+.content-modal {
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.content-modal h2 {
+    margin-bottom: 15px;
+}
+
+.content-modal p {
+    padding: 15px 0px;
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+}
+
+.content-modal .btn-cerrar {
+    width: 55.5%;
+    display: flex;
+    justify-content: center;
+}
+
+.content-modal .btn-cerrar label {
+    padding: 8px 10px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 300ms ease;
+}
+.content-modal h2 {
+    margin-bottom: 15px;
+}
+
+.content-modal .btn-cerrar label:hover {
+    background-color: #a5a5a5;
+}
+
+.cerrar-modal {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+@media screen and (max-width: 800px) {
+    .content-modal {
+        width: 90%;
+    }
+}
+
+textarea#observaciones {
+    resize: vertical; 
+}
+
+main .seleccion-div {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.container-img {
+    text-align: left;
+}
+
+textarea {
+    height: 100%;
+    resize: none;
+}
+
+form textarea{
+    font-family: inherit;
+    height: 38px;
+    max-height: 300px;
+}
+
+.seleccion-div {
+    margin-bottom: 20px;
+}
+
+#imagenMostrada {
+    max-width: 50%;
+    max-height: 150px;
+    margin-top: 10px;
+}

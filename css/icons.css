@@ -1,0 +1,19 @@
+/* En tu archivo CSS (icons.css) */
+[class^="icon-"], [class*=" icon-"] {
+  /* Resto de tus estilos */
+  font-family: 'icomoon' !important;
+}
+
+.icon-camera {
+  width: 300px; /* Ajusta el ancho según tus necesidades */
+  height: 300px; /* Ajusta la altura según tus necesidades */
+  background: url('camara\ \(1\).svg') center center no-repeat;
+  background-size: contain; /* Ajusta según tus necesidades */
+}
+
+.icon-cross {
+  width: 500px; /* Ajusta el ancho según tus necesidades */
+  height: 500px; /* Ajusta la altura según tus necesidades */
+  background: url('x.svg') center center no-repeat;
+  background-size: contain; /* Ajusta según tus necesidades */
+}
