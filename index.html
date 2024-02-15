@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Vista previa de imágenes</title>
+</head>
+<body>
+  <header>
+    <div class="container text-center">
+    <div class="row">
+        <div class="col-sm-3 my-1 container-img">
+            <img src="ARAUCO.svg" width="150" height="75" alt="Logo" class="logo">
+        </div>
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="col-12 col-md-8">
+                <h1>Bitácora de Turno</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</header>
+    <main>
+
+        <div class="seleccion-div">
+            <label for="Bitácora">Bitácora:
+            <select id="Bitácora" name="Bitácora">
+                <option value="Electrico">Electrico</option>
+                <option value="Electromecanico">Electromecanico</option>
+                <option value="Mecanico">Mecanico</option>
+            </select>
+            </label>
+        </div>
+
+        <div class="seleccion-div">
+            <label for="nombre">Nombre:
+            <select id="nombre" name="nombre">
+                <option value="Abraham Mieres">Abraham Mieres</option>
+                <option value="Jonathan Parra">Jonathan Parra</option>
+                <option value="Jaime Flores">Jaime Flores</option>
+                <option value="Jose Saez">Jose Saez</option>
+            </select>
+            </label>
+        </div>
+
+        <div class="seleccion-div">
+            <label for="turno">Turno:
+            <select id="turno" name="turno">
+                <option value="Turno 1">Turno 1</option>
+                <option value="Turno 2">Turno 2</option>
+                <option value="Turno 3">Turno 3</option>
+            </select>
+            </label>
+        </div>
+
+        <div class="seleccion-div">
+            <label for="fecha">Fecha actual:
+            <br>
+            <input type="text" id="fecha" name="fecha" readonly style="width: auto;">
+        </div>
+</label>
+
+        <div class="boton-modal">
+            <label for="btn-modal">Continuar</label>
+        </div>
+        <input type="checkbox" id="btn-modal" />
+        <div class="container-modal">
+            <div class="content-modal">
+                <h2>Creando pdf</h2>
+                <p>Revise que los datos ingresados sean correctos</p>
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col btn-cerrar">
+                            <button id="btn-cerrar" class="my-button2">Cerrar</button>
+                          </div>
+                          <div class="col btn-cerrar">
+                            <button id="btn-generar-pdf" class="my-button2" onclick="genPDF()">Generar PDF</button>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+        <div id="tareasContainer" class="btn-cerrar"></div>
+        <button id="agregarTareaBtn" class="boton-modala">Agregar Tarea</button>
+        <input type="button" value="Borrar Tarea" id="borrarTareaBtn" class="boton-borrar" style="margin-top: 10px;">
+    </main>
+
+    <!-- Bootstrap y jQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="jss/functions.js"></script>
+    <script src="jss/scripts.js"></script>
+    <script src="jss/main.js"></script>
+    <script src="jss/horas.js"></script>
+    <script src="jss/jspdf.min.js "></script>
+    <script src="jss/pdf.js"></script>
+</body>
+</html>
