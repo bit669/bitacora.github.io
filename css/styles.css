@@ -67,7 +67,7 @@ h1 {
 }
 
 .images-cards img {
-    height: 240px;
+    height: 100px;
 }
 
 .images-cards figure figcaption {
@@ -95,7 +95,7 @@ h1 {
     display: flex;
     border: 4px dashed #fff;
     height: 100%;
-    min-height: 100px;
+    min-height: 240px;
     justify-content: center;
     align-items: center;
     font-size: 50px;
