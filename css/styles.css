@@ -95,7 +95,7 @@ h1 {
     display: flex;
     border: 4px dashed #fff;
     height: 100%;
-    min-height: 240px;
+    min-height: 100px;
     justify-content: center;
     align-items: center;
     font-size: 50px;
