@@ -139,7 +139,7 @@ function crearElementoTarea() {
               <div class="row">
                   <div class="col-md-3 col-sm-4 col-xs-12" id="add-photo-container">
                       <div class="add-new-photo first" id="add-photo">
-                          <span><img src="camara.svg" alt="Agregar Foto"></span>
+                          <span><img src="camara(2).svg" alt="Agregar Foto"></span>
                       </div>
                       <input type="file" multiple id="add-new-photo" name="images[]" data-sufijo="${sufijo}">
                   </div>
