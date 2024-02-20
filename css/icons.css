@@ -99,3 +99,24 @@
   height: 100%;
   cursor: pointer; /* Añade esta línea para mostrar el cursor como puntero */
 }
+
+#add-photo-container1 input {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer; /* Añade esta línea para mostrar el cursor como puntero */
+}
+
+
+#add-photo-container2 input {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer; /* Añade esta línea para mostrar el cursor como puntero */
+}
