@@ -1,4 +1,5 @@
 // main.js
+var sufijo;
 document.addEventListener('DOMContentLoaded', function () {
   // Obtén la fecha actual
   const fechaActual = new Date();
@@ -80,75 +81,77 @@ function crearElementoTarea() {
   let tareaDiv = document.createElement("div");
   let sufijo = contadorSufijos++;
   tareaDiv.innerHTML = `
-      <div class="seleccion-div">
-          <label for="area_${sufijo}">Área:</label>
-      <select id="area_${sufijo}" name="area_${sufijo}" onchange="cambiarEquipos(${sufijo})">
-          <option value="" disabled selected>Selecciona un área</option>
-              <option value="Chapas">Chapas</option>
-              <option value="Tableros">Tableros</option>
-              <option value="Terminacion">Terminación</option> 
-          </select>    
-      </div>
-      <div class="seleccion-div my-2" id="ListChapas_${sufijo}" style="display: none;">
-          <label for="subareaChapas_${sufijo}">Equipo:</label>
-          <select id="subareaChapas_${sufijo}" name="subareaChapas_${sufijo}">
-              <option value="Selecciona un Equipo">Selecciona un Equipo</option>
-              <option value="Macerado">Macerado</option>
-              <option value="Rollizos">Rollizos</option>
-              <option value="Astillador Verde L1">Astillador Verde L1</option>
-              <option value="Astillador Verde L2">Astillador Verde L2</option>
-          </select>
-      </div>
-      <div class="seleccion-div my-2" id="ListTableros_${sufijo}" style="display: none;">
-          <label for="subareaTableros_${sufijo}">Equipo:</label>
-          <select id="subareaTableros_${sufijo}" name="subareaTableros_${sufijo}">
-              <option value="Selecciona un Equipo">Selecciona un Equipo</option>
-              <option value="Equipo1">Equipo1</option>
-              <option value="Equipo2">Equipo2</option>
-          </select>
-      </div>
-      <div class="seleccion-div my-2" id="ListTerminacion_${sufijo}" style="display: none;">
-          <label for="subareaTerminacion_${sufijo}">Equipo:</label>
-          <select id="subareaTerminacion_${sufijo}" name="subareaTerminacion_${sufijo}">
-              <option value="Selecciona un Equipo">Selecciona un Equipo</option>
-              <option value="Equipo ter1">Equipo ter1</option>
-              <option value="Equipo ter2">Equipo ter2</option>
-          </select>
-      </div>
-      <div class="seleccion-div my-2">
-          <label for="inicio_${sufijo}">Inicio:</label>
-          <input type="time" id="inicio_${sufijo}" name="inicio_${sufijo}">
-      </div>
-      <div class="seleccion-div">
-          <label for="termino_${sufijo}">Termino:</label>
-          <input type="time" id="termino_${sufijo}" name="termino_${sufijo}">
-      </div>
-      <div class="seleccion-div">
-          <label for="difTiempo_${sufijo}">Diferencia:</label>
-          <input type="time" id="difTiempo_${sufijo}" name="difTiempo_${sufijo}" readonly style="margin-bottom: 20px;">
-      </div>
-      <div class="mb-2">
-          <label for="observaciones_${sufijo}" class="lbl-observaciones">
-              <span class="text-observaciones">Observaciones</span>
-          </label><br>
-          <textarea id="observaciones_${sufijo}" name="observaciones_${sufijo}" required rows="2"></textarea>
-      </div>
-      <div class="container">
-      <section id="Images" class="images-cards">
-          <form action="upload.php" method="post" enctype="multipart/form-data">
-              <div class="row">
-                  <div class="col-md-3 col-sm-4 col-xs-12" id="add-photo-container">
-                      <div class="add-new-photo first" id="add-photo">
-                          <span><img src="camara(3).svg" alt="Agregar Foto"></span>
-                      </div>
-                      <input type="file" multiple id="add-new-photo" name="images[]" data-sufijo="${sufijo}">
-                  </div>
-              </div>
-          </form>
-      </section>
-  </div>    
+    <div class="seleccion-div">
+        <label for="area_${sufijo}">Área:</label>
+    <select id="area_${sufijo}" name="area_${sufijo}" onchange="cambiarEquipos(${sufijo})">
+        <option value="" disabled selected>Selecciona un área</option>
+            <option value="Chapas">Chapas</option>
+            <option value="Tableros">Tableros</option>
+            <option value="Terminacion">Terminación</option> 
+        </select>
+    </div>
+    <div class="seleccion-div my-2" id="ListChapas_${sufijo}" style="display: none;">
+        <label for="subareaChapas_${sufijo}">Equipo:</label>
+        <select id="subareaChapas_${sufijo}" name="subareaChapas_${sufijo}">
+            <option value="Selecciona un Equipo">Selecciona un Equipo</option>
+            <option value="Macerado">Macerado</option>
+            <option value="Rollizos">Rollizos</option>
+            <option value="Astillador Verde L1">Astillador Verde L1</option>
+            <option value="Astillador Verde L2">Astillador Verde L2</option>
+        </select>
+    </div>
+    <div class="seleccion-div my-2" id="ListTableros_${sufijo}" style="display: none;">
+        <label for="subareaTableros_${sufijo}">Equipo:</label>
+        <select id="subareaTableros_${sufijo}" name="subareaTableros_${sufijo}">
+            <option value="Selecciona un Equipo">Selecciona un Equipo</option>
+            <option value="Equipo1">Equipo1</option>
+            <option value="Equipo2">Equipo2</option>
+        </select>
+    </div>
+    <div class="seleccion-div my-2" id="ListTerminacion_${sufijo}" style="display: none;">
+        <label for="subareaTerminacion_${sufijo}">Equipo:</label>
+        <select id="subareaTerminacion_${sufijo}" name="subareaTerminacion_${sufijo}">
+            <option value="Selecciona un Equipo">Selecciona un Equipo</option>
+            <option value="Equipo ter1">Equipo ter1</option>
+            <option value="Equipo ter2">Equipo ter2</option>
+        </select>
+    </div>
+    <div class="seleccion-div my-2">
+        <label for="inicio_${sufijo}">Inicio:</label>
+        <input type="time" id="inicio_${sufijo}" name="inicio_${sufijo}">
+    </div>
+    <div class="seleccion-div">
+        <label for="termino_${sufijo}">Termino:</label>
+        <input type="time" id="termino_${sufijo}" name="termino_${sufijo}">
+    </div>
+    <div class="seleccion-div">
+        <label for="difTiempo_${sufijo}">Diferencia:</label>
+        <input type="time" id="difTiempo_${sufijo}" name="difTiempo_${sufijo}" readonly style="margin-bottom: 20px;">
+    </div>
+    <div class="mb-2">
+        <label for="observaciones_${sufijo}" class="lbl-observaciones">
+            <span class="text-observaciones">Observaciones</span>
+        </label><br>
+        <textarea id="observaciones_${sufijo}" name="observaciones_${sufijo}" required rows="2"></textarea>
+    </div>
 
-  `;
+    
+    <div class="container_${sufijo}">
+    <section id="Images" class="images-cards">
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-3 col-sm-4 col-xs-12" id="add-photo-container${sufijo}">
+            <div class="add-new-photo first" id="add-photo${sufijo}">
+                <span><img src="camara(3).svg" alt="Agregar Foto"></span>
+            </div>
+            <input type="file" multiple id="add-new-photo${sufijo}" name="images${sufijo}[]" data-sufijo="${sufijo}">
+        </div>
+    </div>
+</form>
+    </section>
+</div>
+
+`;
   // Asignar evento directamente desde JavaScript
   let areaSelect = tareaDiv.querySelector(`#area_${sufijo}`);
   if (areaSelect) {
