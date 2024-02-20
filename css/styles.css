@@ -45,7 +45,7 @@ select, input[type="text"], textarea {
 }
 
 .boton-modal label, .boton-borrar, .boton-modala {
-    padding: 10px 12px;
+    padding: 8px 10px;
     background-color: var(--primary-color);
     color: var(--text-color);
     border-radius: 5px;
@@ -64,7 +64,7 @@ select, input[type="text"], textarea {
 }
 
 .boton-modal label {
-    right: 20px;
+    right: 15px;
 }
 
 .boton-borrar {
