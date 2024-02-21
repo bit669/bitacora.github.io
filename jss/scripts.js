@@ -95,6 +95,8 @@
 
 
 // version con sufijos
+var bases; // Inicializar el arreglo bases
+var bases = []; // Inicializar el arreglo bases como un arreglo vacío
 document.addEventListener('DOMContentLoaded', function () {
     // Función para generar previsualizaciones
     function createPreview(file, sufijo) {
@@ -102,15 +104,46 @@ document.addEventListener('DOMContentLoaded', function () {
         var imgCodified = URL.createObjectURL(file);
         var imgContainer = $('<div class="col-md-3 col-sm-4 col-xs-12"><div class="image-container"> <figure> <img src="' 
             + imgCodified + '" alt="Foto del usuario"> <figcaption> <i class="icon-cross"></i> </figcaption> </figure> </div></div>');
-    
         // Vincula el evento de clic en la cámara al botón para subir imágenes
         imgContainer.insertBefore(`#add-photo-container${sufijo}`);
         $(`#add-photo${sufijo}`).on('click', function () {
             $(`#add-new-photo${sufijo}`).click();
         });
     }
-    
-    $(document).ready(function(){
+
+    // Función para convertir una imagen a base64
+    async function convertirImagen(file) {
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext("2d");
+        var img = new Image();
+        // Crear una url temporal
+        var url = URL.createObjectURL(file);
+        // Asignar la url
+        img.src = url;
+        // Crear una promesa para esperar a que la imagen se cargue
+        return new Promise((resolve, reject) => {
+            // Asignar una función al evento onload
+            img.onload = function() {
+                // Ajustar el tamaño del canvas
+                canvas.width = img.width;
+                canvas.height = img.height;
+                // Dibujar la imagen en el canvas
+                ctx.drawImage(img, 0, 0);
+                // Obtener el código base64 del canvas
+                var dataURL = canvas.toDataURL();
+                // Liberar la url temporal
+                URL.revokeObjectURL(url);
+                // Resolver la promesa con el código base64
+                resolve(dataURL);
+            };
+            // Asignar una función al evento onerror
+            img.onerror = function() {
+                // Rechazar la promesa con un mensaje de error
+                reject("Error al cargar la imagen");
+            };
+        });
+    }
+    $(document).ready(async function(){
         // Modal
         $(".modal").on("click", function (e) {
             console.log(e);
@@ -118,14 +151,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 closeModal();
             }
         });
-        // Modal
         // Abrir el inspector de archivos
         $(document).on("click", `[id^="add-photo"]`, function(){
             $(`#add-new-photo${$(this).data('sufijo')}`).click();
         });
-        // Abrir el inspector de archivos
         // Cachamos el evento change
-        $(document).on("change", `[id^="add-new-photo"]`, function () {
+        $(document).on("change", `[id^="add-new-photo"]`, async function () {
             console.log(this.files);
             var files = this.files;
             var seEncontraronElementoNoValidos = false;
@@ -135,7 +166,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 var element = files[i];
 
                 if (supportedImages.indexOf(element.type) != -1) {
+                    // Generar la previsualización
                     createPreview(element, $(this).data('sufijo'));
+                    // Convertir la imagen a base64
+                    var base64 = await convertirImagen(element);
+                    // Agregar el valor de base64 al arreglo bases
+                    bases.push(base64);
+                    // Mostrar el código base64 en la consola
+                    console.log(base64); 
+                    // Usar el valor de base64 fuera de este código
+                    // ...
                 } else {
                     seEncontraronElementoNoValidos = true;
                 }
@@ -145,83 +185,5 @@ document.addEventListener('DOMContentLoaded', function () {
         $(document).on("click", `[id^="Images"] .image-container`, function (e) {
             $(this).parent().remove();
         });
-        // Eliminar previsualizaciones
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// document.addEventListener('DOMContentLoaded', function () {
-//     // Función para generar previsualizaciones
-//     function createPreview(file, sufijo) {
-//         // Crear la estructura de la imagen antes de insertarla
-//         var imgCodified = URL.createObjectURL(file);
-//         var imgContainer = $('<div class="col-md-3 col-sm-4 col-xs-12"><div class="image-container"> <figure> <img src="' 
-//             + imgCodified + '" alt="Foto del usuario"> <figcaption> <i class="icon-cross"></i> </figcaption> </figure> </div></div>');
-    
-//         // Vincula el evento de clic en la cámara al botón para subir imágenes
-//         imgContainer.insertBefore(`#add-photo-container${sufijo}`);
-//         $(`#add-photo${sufijo}`).on('click', function () {
-//             $(`#add-new-photo${sufijo}`).click();
-//         });
-//     }
-    
-//     $(document).ready(function(){
-//         // Modal
-//         $(".modal").on("click", function (e) {
-//             console.log(e);
-//             if (($(e.target).hasClass("modal-main") || $(e.target).hasClass("close-modal")) && $("#loading").css("display") == "none") {
-//                 closeModal();
-//             }
-//         });
-//         // Modal
-//         // Abrir el inspector de archivos
-//         $(document).on("click", `[id^="add-photo"]`, function(){
-//             $(`#add-new-photo${$(this).data('sufijo')}`).click();
-//         });
-//         // Abrir el inspector de archivos
-//         // Cachamos el evento change
-//         $(document).on("change", `[id^="add-new-photo"]`, function () {
-//             console.log(this.files);
-//             var files = this.files;
-//             var seEncontraronElementoNoValidos = false;
-//             var supportedImages = ["image/jpeg", "image/png", "image/gif"];
-
-//             for (var i = 0; i < files.length; i++) {
-//                 var element = files[i];
-
-//                 if (supportedImages.indexOf(element.type) != -1) {
-//                     createPreview(element, $(this).data('sufijo'));
-//                 } else {
-//                     seEncontraronElementoNoValidos = true;
-//                 }
-//             }
-//         });
-//         // Eliminar previsualizaciones
-//         $(document).on("click", `[id^="Images"] .image-container`, function (e) {
-//             $(this).parent().remove();
-//         });
-//         // Eliminar previsualizaciones
-//     });
-// });
