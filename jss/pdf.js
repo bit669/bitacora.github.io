@@ -78,8 +78,10 @@ function genPDF() {
     // var imgCodified = URL.createObjectURL (file);
     // // Agregar la imagen al PDF
     // doc.addImage (imgCodified, "JPEG", 10, 10, 50, 50); // Ajustar los parámetros según sea necesario
+
+    
   });
 
   // Guardar el PDF
-  doc.save("Bitácora " + fecha + ".pdf");
+  doc.save("Bitácora " + nombre + " " + fecha + ".pdf");
 }
