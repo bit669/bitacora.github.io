@@ -98,75 +98,120 @@ function genPDF() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 //codigo que permite crear un pdf con imagenes
 
-// Obtener el botón por su id
+// // Obtener el botón por su id
 // const boton = document.getElementById("generar-pdf");
-
 // // Añadir un evento click al botón usando una función flecha
 // boton.addEventListener("click", () => {
 //   // Llamar a la función que genera el PDF
 //   generarPDF();
 // });
-
 // // Definir la función que genera el PDF
 // function generarPDF() {
 //   // Crear una instancia de jsPDF
 //   const pdf = new jsPDF();
-
-//   // Usar el arreglo bases que contiene los códigos base64 de las imágenes
+//   // Usar el arreglo bases que contiene los códigos base64
 //   const bases = window.bases;
-
-//   // Comprobar si el arreglo bases tiene algún elemento
+//   // Comprobar si el arreglo tiene algún elemento
 //   if (bases.length > 0) {
-//     // Crear una variable para contar el número de imágenes procesadas
-//     let count = 0;
-
-//     // Recorrer el arreglo bases
-//     for (let i = 0; i < bases.length; i++) {
-//       // Obtener el código base64 actual
-//       const base64 = bases[i];
-
-//       // Crear una imagen HTML para obtener su tamaño real
-//       const img = new Image();
-//       img.src = base64;
-
-//       // Esperar a que la imagen esté cargada antes de obtener su tamaño
-//       img.onload = function () {
-//         // Calcular la relación de aspecto
-//         const aspectRatio = img.width / img.height;
-
-//         // Especificar el tamaño de la imagen en el documento PDF
-//         const width = 180; // Puedes ajustar el ancho según tus necesidades
-//         const height = width / aspectRatio;
-
-//         // Añadir la imagen al documento PDF usando el código base64 y el tamaño calculado
-//         pdf.addImage(base64, "JPEG", 10, 10 + count * (height + 10), width, height);
-
-//         // Incrementar el contador de imágenes procesadas
-//         count++;
-
-//         // Si todas las imágenes han sido procesadas, guardar el documento PDF
-//         if (count === bases.length) {
-//           // Guardar el documento PDF con el nombre "imagenes.pdf"
-//           pdf.save("imagenes.pdf");
-//         }
-//       };
+//     // Crear un arreglo para guardar las promesas
+//     const promises = [];
+//     // Recorrer el arreglo
+//     for (const base64 of bases) {
+//       // Crear una promesa para cada imagen
+//       const promise = new Promise((resolve, reject) => {
+//         // Crear una imagen HTML para obtener su tamaño real
+//         const img = new Image();
+//         img.src = base64;
+//         // Esperar a que la imagen esté cargada
+//         img.onload = function () {
+//           // Resolver la promesa con la imagen
+//           resolve(img);
+//         };
+//         // Manejar el caso de error
+//         img.onerror = function () {
+//           // Rechazar la promesa con un mensaje de error
+//           reject("Error al cargar la imagen");
+//         };
+//       });
+//       // Añadir la promesa al arreglo
+//       promises.push(promise);
 //     }
+//     // Esperar a que todas las promesas se resuelvan
+//     Promise.all(promises)
+//       .then((images) => {
+//         // contador para las imágenes
+//         let count = 0;
+//         // Recorrer el arreglo de imágenes
+//         for (const img of images) {
+//           // Obtener el tamaño natural de la imagen
+//           const iWidth = img.naturalWidth;
+//           const iHeight = img.naturalHeight;
+//           // Reducir el tamaño de la imagen 
+//           const width = iWidth / 42;
+//           const height = iHeight / 42;
+//           // Calcular la posición en el documento Dividir la página en 6 partes Usar el contador para asignar la imagen a una parte
+//           let x, y;
+//           switch (count % 6) {
+//             case 0:
+//               // izquierda superior
+//               x = 10;
+//               y = 10;
+//               break;
+//             case 1:
+//               // izquierda central
+//               x = 10;
+//               y = pdf.internal.pageSize.getHeight() / 3 + 11;
+//               break;
+//             case 2:
+//               // izquierda inferior
+//               x = 10;
+//               y = pdf.internal.pageSize.getHeight() * 2 / 3 + 11;
+//               break;
+//             case 3:
+//               // derecha superior
+//               x = pdf.internal.pageSize.getWidth() / 2 + 5;
+//               y = 10;
+//               break;
+//             case 4:
+//               // derecha central
+//               x = pdf.internal.pageSize.getWidth() / 2 + 5;
+//               y = pdf.internal.pageSize.getHeight() / 3 + 11;
+//               break;
+//             case 5:
+//               // derecha inferior
+//               x = pdf.internal.pageSize.getWidth() / 2 + 5;
+//               y = pdf.internal.pageSize.getHeight() * 2 / 3 + 11;
+//               break;
+//           }
+//           // Añadir la imagen al documento PDF
+//           pdf.addImage(
+//             img.src,
+//             "JPEG",
+//             x, // Colocar la imagen
+//             y, // Colocar la imagen
+//             width,
+//             height
+//           );
+
+//           // Incrementar el contador
+//           count++;
+//           // Comprobar si hay más de 6 imágenes
+//           if (count % 6 === 0 && count < images.length) {
+//             // Crear una nueva página en el PDF
+//             pdf.addPage();
+//           }
+//         }
+//         // Guardar el documento PDF con el nombre "imagenes.pdf"
+//         pdf.save("imagenes.pdf");
+//       })
+//       .catch((error) => {
+//         // Mostrar el mensaje de error
+//         alert(error);
+//       });
 //   } else {
-//     // Mostrar un mensaje de error al usuario
-//     alert("Por favor, selecciona al menos una imagen");
+//     // Mostrar un mensaje de error
+//     alert("Por favor, selecciona una imagen");
 //   }
 // }
