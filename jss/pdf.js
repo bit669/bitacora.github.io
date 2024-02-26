@@ -1,10 +1,10 @@
 function genPDF() {
-  // Obtener los valores
+// Obtener los valores
   const nombre = document.getElementById("nombre").value;
   const turno = document.getElementById("turno").value;
   const fecha = document.getElementById("fecha").value;
   const elementos = document.querySelectorAll('[data-sufijo]');
-  //nuevo objeto jsPDF
+//nuevo objeto jsPDF
   const pdf = new jsPDF();
   let yPos = 20;
   pdf.setFillColor(31, 79, 120); // Relleno azul
@@ -15,18 +15,18 @@ function genPDF() {
   pdf.setFillColor(255, 255, 255); //blanco
   pdf.setTextColor(0, 0, 0); //negro
   pdf.setFontSize(18);
-  // Recorrer elementos y obtener valores
+// Recorrer elementos y obtener valores
   elementos.forEach(function (elemento) {
-  // Reiniciar acumuladorInfo
+// Reiniciar acumuladorInfo
   let acumuladorInfo = "";
-  // Obtener el sufijo y valores
+// Obtener el sufijo y valores
   const sufijo = elemento.dataset.sufijo;
   const area = document.getElementById(`area_${sufijo}`).value;
   const inicio = document.getElementById(`inicio_${sufijo}`).value;
   const termino = document.getElementById(`termino_${sufijo}`).value;
   const difTiempo = document.getElementById(`difTiempo_${sufijo}`).value;
   const observaciones = document.getElementById(`observaciones_${sufijo}`).value;
-  // valor de subárea
+// valor de subárea
   let subarea;
   if (area === "Chapas") {
     subarea = document.getElementById(`subareaChapas_${sufijo}`).value;
@@ -36,7 +36,7 @@ function genPDF() {
     subarea = document.getElementById(`subareaTerminacion_${sufijo}`).value;
 } else {
     subarea = "";}
-  // Acumular la info
+// Acumular la info
   acumuladorInfo += `\n
 Nombre: ${nombre}\n
 ${turno}\n
@@ -48,9 +48,8 @@ Hora de Inicio: ${inicio}\n
 Hora de Termino: ${termino}\n
 Diferencia de Tiempo: ${difTiempo}\n`;
 // nueva página
-  if (yPos + 105 > pdf.internal.pageSize.height) {
-    pdf.addPage();
-    yPos = 20;}
+if (yPos + 105 > pdf.internal.pageSize.height) {
+  pdf.addPage(); yPos = 20;}
 // Agregar la información
   pdf.text(8, yPos, acumuladorInfo);});
 // Usar el arreglo bases
@@ -59,57 +58,55 @@ const bases = window.bases;
 if (bases.length > 0) {
 // guardar las promesas
   const promises = [];
-  // Recorrer el arreglo
+// Recorrer el arreglo
   for (const base64 of bases) {
-    // Crear una promesa para cada imagen
+// Crear una promesa para cada imagen
     const promise = new Promise((resolve, reject) => {
-    // obtener su tamaño real
+// obtener su tamaño real
     const img = new Image();
     img.src = base64;
-    // Esperar que la imagen esté cargada
+// Esperar que la imagen esté cargada
     img.onload = function () {
-    // Resolver la promesa con la imagen
+// Resolver la promesa con la imagen
     resolve(img);};
-    // Manejar el caso de error
+// Manejar el caso de error
     img.onerror = function () {
     reject("Error al cargar la imagen");};});
-  // Añadir la promesa al arreglo
+// Añadir la promesa al arreglo
     promises.push(promise);}
-  // Esperar que las promesas se resuelvan
+// Esperar que las promesas se resuelvan
   Promise.all(promises)
     .then((images) => {
-  // contador imágenes
+// contador imágenes
     let count = 0;
-  // Recorrer el arreglo de imágenes
+// Recorrer el arreglo de imágenes
   for (const img of images) {
-    // Obtener el tamaño
+  // Obtener el tamaño
     const iWidth = img.naturalWidth;
     const iHeight = img.naturalHeight;
-    // Reducir el tamaño 
-    const width = iWidth / 2;
-    const height = iHeight / 2;
-    // Dividir la página Usar contador para asignar imagen
+  // Reducir el tamaño 
+    const width = iWidth / 20;
+    const height = iHeight / 20;
+  // Dividir la página Usar contador para asignar imagen
     let x, y;
   switch (count % 4) {
-    case 0:// izquierda superior
+    case 0://izquierda superior
       x = 10;
       y = 10;
       break;
-    case 1:// derecha superior
+    case 1://derecha superior
       x = pdf.internal.pageSize.getWidth() / 2 + 5;
       y = 10;
       break;
-    case 2:// izquierda inferior
+    case 2://izquierda inferior
       x = 10;
       y = pdf.internal.pageSize.getHeight() / 2 + 11;
       break;
-    case 3:// derecha inferior
+    case 3://derecha inferior
       x = pdf.internal.pageSize.getWidth() / 2 + 5;
       y = pdf.internal.pageSize.getHeight() / 2 + 11;
       break;}
-  // nueva página
   pdf.addPage();
-  // Añadir imagen al PDF
   pdf.addImage(
     img.src,"JPEG",x,y,width,height);
   count++;}
