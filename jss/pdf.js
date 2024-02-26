@@ -47,7 +47,6 @@ Observaciones: \n \n ${observaciones}\n
 Hora de Inicio: ${inicio}\n
 Hora de Termino: ${termino}\n
 Diferencia de Tiempo: ${difTiempo}\n`;
-// nueva página
 if (yPos + 105 > pdf.internal.pageSize.height) {
   pdf.addPage(); yPos = 20;}
 // Agregar la información
@@ -90,19 +89,19 @@ if (bases.length > 0) {
   // Dividir la página Usar contador para asignar imagen
     let x, y;
   switch (count % 4) {
-    case 0://izquierda superior
+    case 0:// < superior
       x = 10;
       y = 10;
       break;
-    case 1://derecha superior
+    case 1:// > superior
       x = pdf.internal.pageSize.getWidth() / 2 + 5;
       y = 10;
       break;
-    case 2://izquierda inferior
+    case 2:// < inferior
       x = 10;
       y = pdf.internal.pageSize.getHeight() / 2 + 11;
       break;
-    case 3://derecha inferior
+    case 3:// > inferior
       x = pdf.internal.pageSize.getWidth() / 2 + 5;
       y = pdf.internal.pageSize.getHeight() / 2 + 11;
       break;}
