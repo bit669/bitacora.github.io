@@ -69,13 +69,13 @@ function genPDF() {
     const lines = observaciones.split('\n');
 
     // Acumular información
-    acumuladorInfo += `\nNombre: ${nombre}\n${turno}\nFecha actual: ${fecha}\nÁrea: ${area}\nEquipo: ${subarea}\n`;
+    acumuladorInfo += `\nNombre: ${nombre}\n \n${turno}\n \nFecha actual: ${fecha}\n \nÁrea: ${area}\n \nEquipo: ${subarea}\n \n`;
 
     // Añadir líneas de observaciones
-    acumuladorInfo += `Observaciones: ${observaciones}\n`;
+    acumuladorInfo += `Observaciones: ${observaciones}\n \n`;
 
     // Añadir el resto de la información
-    acumuladorInfo += `Hora de Inicio: ${inicio}\nHora de Termino: ${termino}\nDiferencia de Tiempo: ${difTiempo}\n`;
+    acumuladorInfo += `Hora de Inicio: ${inicio}\n \nHora de Termino: ${termino}\n \nDiferencia de Tiempo: ${difTiempo}\n \n`;
 
     // Agregar la información
     pdf.text(8, yPos, acumuladorInfo);
