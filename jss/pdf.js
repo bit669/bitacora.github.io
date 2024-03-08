@@ -250,6 +250,8 @@ function genPDF() {
 
     yPosTexto += 10; // Añadir espacio después de cada bloque de texto
 
+    // Añadir una nueva página para las imágenes después de cada bloque de texto
+    pdf.addPage();
   });
 
   const bases = window.bases;
