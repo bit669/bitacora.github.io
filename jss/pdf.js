@@ -192,7 +192,6 @@ function genPDF() {
   const pdf = new jsPDF();
 
   let yPosTexto = 20;
-  let yPosImagenes = 20;
 
   // Configurar estilo de encabezado
   pdf.setFillColor(31, 79, 120); // Relleno azul
@@ -239,8 +238,6 @@ function genPDF() {
       }
     }
 
-    const lines = observaciones.split('\n');
-
     acumuladorInfo += `\nNombre: ${nombre}\n \n ${turno}\n \n Fecha actual: ${fecha}\n \n Área: ${area}\n \n Equipo: ${subarea}\n \n `;
     acumuladorInfo += `Observaciones:\n ${observaciones}\n \n `;
     acumuladorInfo += `Hora de Inicio: ${inicio}\n \n Hora de Termino: ${termino}\n \n Diferencia de Tiempo: ${difTiempo}\n \n `;
@@ -252,6 +249,9 @@ function genPDF() {
     prevFecha = currentValues;
 
     yPosTexto += 10; // Añadir espacio después de cada bloque de texto
+
+    // Añadir una nueva página para las imágenes después de cada bloque de texto
+    pdf.addPage();
   });
 
   const bases = window.bases;
@@ -282,19 +282,20 @@ function genPDF() {
           const height = iHeight * scale;
   
           // Asegúrate de que la imagen cabe en la página, si no, añade una nueva página
-          if (yPosImagenes + height > pdf.internal.pageSize.height) {
-            pdf.addPage();
-            yPosImagenes = 20; // Restablece la posición Y para la nueva página
-          }
+          pdf.addPage();
+          const yPosImagenes = 20; // Restablece la posición Y para la nueva página
   
-          yPosImagenes += 10; // Espacio antes de la imagen
-  
-          // Añade la imagen con una calidad reducida
           pdf.addImage(img.src, "JPEG", 10, yPosImagenes, width, height, '', 'FAST');
   
-          yPosImagenes += height + 10; // Espacio después de la imagen
+          // Añadir una nueva página después de cada imagen
+          pdf.addPage();
         });
   
+        // Eliminar la última página en blanco
+        if (pdf.internal.getNumberOfPages() > 1) {
+          pdf.deletePage(pdf.internal.getNumberOfPages());
+        }
+
         pdf.save("Bitácora " + nombre + " " + fecha + ".pdf");
       })
       .catch(error => {
