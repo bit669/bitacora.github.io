@@ -250,8 +250,6 @@ function genPDF() {
 
     yPosTexto += 10; // Añadir espacio después de cada bloque de texto
 
-    // Añadir una nueva página para las imágenes después de cada bloque de texto
-    pdf.addPage();
   });
 
   const bases = window.bases;
@@ -274,6 +272,8 @@ function genPDF() {
   
     Promise.all(promises)
       .then(images => {
+        // Añadir una nueva página para las imágenes después de cada bloque de texto
+        pdf.addPage();
         images.forEach(img => {
           const iWidth = img.naturalWidth;
           const iHeight = img.naturalHeight;
