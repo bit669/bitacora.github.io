@@ -272,8 +272,6 @@ function genPDF() {
   
     Promise.all(promises)
       .then(images => {
-        // Añadir una nueva página para las imágenes después de cada bloque de texto
-        pdf.addPage();
         images.forEach(img => {
           const iWidth = img.naturalWidth;
           const iHeight = img.naturalHeight;
