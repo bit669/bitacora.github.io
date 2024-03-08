@@ -284,8 +284,8 @@ function genPDF() {
           const iWidth = img.naturalWidth;
           const iHeight = img.naturalHeight;
           // Reducir tamaño de la imagen
-          const width = iWidth / 20;
-          const height = iHeight / 20;
+          const width = iWidth / 40;
+          const height = iHeight / 40;
 
           // Calcular coordenadas
           const x = (pdf.internal.pageSize.width - width) / 2;
