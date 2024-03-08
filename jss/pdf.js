@@ -283,14 +283,8 @@ function genPDF() {
         images.forEach(img => {
           const iWidth = img.naturalWidth;
           const iHeight = img.naturalHeight;
-          // Reducir tamaño de la imagen
-          const width = iWidth / 5;
-          const height = iHeight / 5;
-
-          // Calcular coordenadas
-          const x = (pdf.internal.pageSize.width - width) / 2;
-          const y = (pdf.internal.pageSize.height - height) / 2;
-
+          const width = iWidth / 4;
+          const height = iHeight / 4;
   
           // Asegúrate de que la imagen cabe en la página, si no, añade una nueva página
           if (yPosImagenes + height > pdf.internal.pageSize.height) {
