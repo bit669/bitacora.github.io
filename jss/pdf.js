@@ -282,6 +282,7 @@ function genPDF() {
           const height = iHeight * scale;
   
           // Asegúrate de que la imagen cabe en la página, si no, añade una nueva página
+          pdf.addPage();
           if (yPosImagenes + height > pdf.internal.pageSize.height) {
             pdf.addPage();
             yPosImagenes = 20; // Restablece la posición Y para la nueva página
