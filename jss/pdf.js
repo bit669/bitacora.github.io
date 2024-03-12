@@ -236,10 +236,7 @@ function genPDF() {
       currentValues !== prevTurno ||
       currentValues !== prevFecha
     ) {
-      if (index > 0) {
-        pdf.addPage();
-        yPosTexto = 20;
-      }
+
     }
 
     const lines = observaciones.split('\n');
@@ -281,7 +278,7 @@ function genPDF() {
 
           // Asegúrate de que la imagen cabe en la página, si no, añade una nueva página
           if (yPosImagenes + height > pdf.internal.pageSize.height) {
-            
+            pdf.addPage();
             yPosImagenes = 20; // Restablece la posición Y para la nueva página
           }
 
