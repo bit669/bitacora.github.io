@@ -293,8 +293,8 @@ function genPDF() {
           yPosTexto = 20; // Restablece la posición Y para la nueva página
         }
 
-        yPosTexto += 10; // Espacio antes de la imagen
-        pdf.addImage(this.src, "JPEG", 10, yPosTexto, this.naturalWidth / 10, this.naturalHeight / 10);
+        yPosTexto += 20; // Espacio antes de la imagen
+        pdf.addImage(this.src, "JPEG", 20, yPosTexto, this.naturalWidth / 10, this.naturalHeight / 10);
         yPosTexto += this.naturalHeight / 10 + 10; // Espacio después de la imagen
       };
 
