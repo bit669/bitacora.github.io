@@ -35,7 +35,7 @@ function genPDF() {
       subarea = "";
     }
 
-    acumuladorInfo += `Nombre: ${nombre}\\nTurno: ${turno}\\nFecha actual: ${fecha}\\nÁrea: ${area}\\nEquipo: ${subarea}\\nObservaciones: ${observaciones}\\nHora de Inicio: ${inicio}\\nHora de Termino: ${termino}\\nDiferencia de Tiempo: ${difTiempo}\\n`;
+    acumuladorInfo += `Nombre: ${nombre} \n Turno: ${turno} \n Fecha actual: ${fecha} \n Área: ${area} \n Equipo: ${subarea} \n Observaciones: ${observaciones} \n Hora de Inicio: ${inicio} \n Hora de Termino: ${termino} \n Diferencia de Tiempo: ${difTiempo} \n `;
 
     if (index > 0) {
       pdf.addPage();
