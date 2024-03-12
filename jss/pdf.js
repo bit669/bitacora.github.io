@@ -236,7 +236,10 @@ function genPDF() {
       currentValues !== prevTurno ||
       currentValues !== prevFecha
     ) {
-
+      if (index > 0) {
+        pdf.addPage();
+        yPosTexto = 20;
+      }
     }
 
     const lines = observaciones.split('\n');
