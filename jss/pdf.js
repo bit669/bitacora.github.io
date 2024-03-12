@@ -35,10 +35,8 @@ function genPDF() {
       subarea = "";
     }
 
-    // Asegúrate de que cada pieza de información se agregue solo una vez.
-    acumuladorInfo += `Nombre: ${nombre}\nTurno: ${turno}\nFecha actual: ${fecha}\nÁrea: ${area}\nEquipo: ${subarea}\nObservaciones: ${observaciones}\nHora de Inicio: ${inicio}\nHora de Termino: ${termino}\nDiferencia de Tiempo: ${difTiempo}\n`;
+    acumuladorInfo += `Nombre: ${nombre}\\nTurno: ${turno}\\nFecha actual: ${fecha}\\nÁrea: ${area}\\nEquipo: ${subarea}\\nObservaciones: ${observaciones}\\nHora de Inicio: ${inicio}\\nHora de Termino: ${termino}\\nDiferencia de Tiempo: ${difTiempo}\\n`;
 
-    // Añadir una nueva página para cada tarea
     if (index > 0) {
       pdf.addPage();
     }
@@ -46,19 +44,16 @@ function genPDF() {
     yPosTexto = 20; // Reset yPosTexto for the next page
   });
 
-  // ... Resto del código para agregar imágenes y guardar el PDF ...
-
-
-
-  const bases = window.bases;
-
   // Añadir imágenes al final, cada una en una página separada
-  bases.forEach(src => {
+  const bases = window.bases;
+  bases.forEach((src, index) => {
     const img = new Image();
     img.src = src;
     img.onload = function () {
-      pdf.addPage(); // Añadir una nueva página para cada imagen
-      pdf.addImage(this.src, "JPEG", 20, yPosTexto, this.naturalWidth / 10, this.naturalHeight / 10);
+      if (index > 0 || elementos.length > 0) {
+        pdf.addPage();
+      }
+      pdf.addImage(this, 'JPEG', 20, yPosTexto, this.naturalWidth / 10, this.naturalHeight / 10);
     };
     img.onerror = function () {
       console.error("Error al cargar la imagen");
@@ -66,9 +61,9 @@ function genPDF() {
   });
 
   // Guardar el PDF una vez que todas las imágenes se hayan cargado
-  Promise.all(bases.map(img => new Promise((resolve, reject) => {
+  Promise.all(bases.map(src => new Promise((resolve, reject) => {
     const image = new Image();
-    image.src = img;
+    image.src = src;
     image.onload = resolve;
     image.onerror = reject;
   }))).then(() => {
