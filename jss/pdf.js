@@ -34,7 +34,7 @@ function genPDF() {
     } else {
       subarea = "";
     }
-
+    const lines = observaciones.split('\n');
     acumuladorInfo += `Nombre: ${nombre} \n Turno: ${turno} \n Fecha actual: ${fecha} \n Área: ${area} \n Equipo: ${subarea} \n Observaciones: ${observaciones} \n Hora de Inicio: ${inicio} \n Hora de Termino: ${termino} \n Diferencia de Tiempo: ${difTiempo} \n `;
 
     if (index > 0) {
