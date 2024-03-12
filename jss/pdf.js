@@ -271,7 +271,7 @@ function genPDF() {
     acumuladorInfo += `Hora de Inicio: ${inicio}\n \n Hora de Termino: ${termino}\n \n Diferencia de Tiempo: ${difTiempo}\n \n `;
 
     pdf.text(8, yPosTexto, acumuladorInfo);
-    yPosTexto += 10; // Asegurar espacio entre textos
+    yPosTexto += 20; // Asegurar espacio entre textos
   });
 
   const bases = window.bases;
