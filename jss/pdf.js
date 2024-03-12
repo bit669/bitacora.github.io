@@ -262,6 +262,7 @@ function genPDF() {
         img.src = src;
         img.onload = function () {
           resolve(img);
+          pdf.addPage();
         };
 
         img.onerror = function () {
@@ -280,7 +281,7 @@ function genPDF() {
 
           // Asegúrate de que la imagen cabe en la página, si no, añade una nueva página
           if (yPosImagenes + height > pdf.internal.pageSize.height) {
-            pdf.addPage();
+            
             yPosImagenes = 20; // Restablece la posición Y para la nueva página
           }
 
