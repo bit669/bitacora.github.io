@@ -271,7 +271,7 @@ function genPDF() {
     acumuladorInfo += `Hora de Inicio: ${inicio}\n \n Hora de Termino: ${termino}\n \n Diferencia de Tiempo: ${difTiempo}\n \n `;
 
     pdf.text(8, yPosTexto, acumuladorInfo);
-    yPosTexto += 20; // Asegurar espacio entre textos
+    yPosTexto = 20; // Asegurar espacio entre textos
   });
 
   const bases = window.bases;
@@ -293,7 +293,7 @@ function genPDF() {
           yPosTexto = 20; // Restablece la posición Y para la nueva página
         }
 
-        yPosTexto += 20; // Espacio antes de la imagen
+        yPosTexto = 20; // Espacio antes de la imagen
         pdf.addImage(this.src, "JPEG", 20, yPosTexto, this.naturalWidth / 10, this.naturalHeight / 10);
         yPosTexto += this.naturalHeight / 10 + 10; // Espacio después de la imagen
       };
