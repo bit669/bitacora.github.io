@@ -44,7 +44,7 @@ function genPDF() {
       pdf.addPage();
     }
     pdf.text(8, yPosTexto, acumuladorInfo);
-    yPosTexto += 10; // Asegúrate de incrementar yPosTexto para la siguiente tarea
+    yPosTexto = 20; // Reset yPosTexto for the next page
   });
 
   const bases = window.bases;
@@ -75,6 +75,7 @@ function genPDF() {
     alert("Hubo un error al cargar las imágenes.");
   });
 }
+
 
 
 
