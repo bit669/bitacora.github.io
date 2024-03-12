@@ -283,10 +283,10 @@ function genPDF() {
       }
     }
 
-    const lines = observaciones.split('\n');
-    acumuladorInfo += `\n Nombre: ${nombre}\n \n ${turno}\n \n Fecha actual: ${fecha}\n \n Área: ${area}\n \n Equipo: ${subarea}\n \n `;
-    acumuladorInfo += `Observaciones:\n ${observaciones}\n \n`;
-    acumuladorInfo += `Hora de Inicio: ${inicio}\n \n Hora de Termino: ${termino}\n \n Diferencia de Tiempo: ${difTiempo}\n \n`;
+    const lines = observaciones.split('\\n');
+    acumuladorInfo += `\\nNombre: ${nombre}\\n \\n ${turno}\\n \\n Fecha actual: ${fecha}\\n \\n Área: ${area}\\n \\n Equipo: ${subarea}\\n \\n `;
+    acumuladorInfo += `Observaciones:\\n ${observaciones}\\n \\n `;
+    acumuladorInfo += `Hora de Inicio: ${inicio}\\n \\n Hora de Termino: ${termino}\\n \\n Diferencia de Tiempo: ${difTiempo}\\n \\n `;
 
     pdf.text(8, yPosTexto, acumuladorInfo);
     prevNombre = currentValues;
@@ -331,6 +331,7 @@ function genPDF() {
     pdf.save("Bitácora " + nombre + " " + fecha + ".pdf");
   }
 }
+
 
 
 
