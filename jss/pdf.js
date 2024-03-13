@@ -1,4 +1,7 @@
 function genPDF() {
+  let prevNombre = null;
+  let prevTurno = null;
+  let prevFecha = null;
   const nombre = document.getElementById("nombre").value;
   const turno = document.getElementById("turno").value;
   const fecha = document.getElementById("fecha").value;
