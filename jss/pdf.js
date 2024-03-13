@@ -34,32 +34,43 @@ function genPDF() {
     } else {
       subarea = "";}
 
-    acumuladorInfo += `\nNombre: ${nombre}\n \n ${turno}\n \n Fecha actual: ${fecha}\n \n Área: ${area}\n \n Equipo: ${subarea}\n \n `;
-    acumuladorInfo += `Observaciones:\n ${observaciones}\n \n `;
-    acumuladorInfo += `Hora de Inicio: ${inicio}\n \n Hora de Termino: ${termino}\n \n Diferencia de Tiempo: ${difTiempo}\n \n `;
+      const currentValues = `${nombre}${turno}${fecha}${area}${subarea}${observaciones}${inicio}${termino}${difTiempo}`;
 
-    // Añadir una nueva página para cada tarea
-    if (index > 0) {
-      pdf.addPage();
-    }
-    pdf.text(8, yPosTexto, acumuladorInfo);
-    acumuladorInfo = "";
+      if (
+        currentValues !== prevNombre ||
+        currentValues !== prevTurno ||
+        currentValues !== prevFecha
+      ){
+        if (index > 0) {
+          pdf.addPage();
+          yPosTexto = 20;
+        }}
+  
+      const lines = observaciones.split('\n');
+      acumuladorInfo += `\nNombre: ${nombre}\n \n ${turno}\n \n Fecha actual: ${fecha}\n \n Área: ${area}\n \n Equipo: ${subarea}\n \n `;
+      acumuladorInfo += `Observaciones:\n ${observaciones}\n \n `;
+      acumuladorInfo += `Hora de Inicio: ${inicio}\n \n Hora de Termino: ${termino}\n \n Diferencia de Tiempo: ${difTiempo}\n \n `;
+  
+      pdf.text(8, yPosTexto, acumuladorInfo);
+      prevNombre = currentValues;
+      prevTurno = currentValues;
+      prevFecha = currentValues;
+    });
+
+  const bases = window.bases;
+
+  // Añadir imágenes al final, cada una en una página separada
+  bases.forEach(src => {
+    const img = new Image();
+    img.src = src;
+    img.onload = function () {
+      pdf.addPage(); // Añadir una nueva página para cada imagen
+      pdf.addImage(this.src, "JPEG", 20, yPosTexto, this.naturalWidth / 10, this.naturalHeight / 10);
+    };
+    img.onerror = function () {
+      console.error("Error al cargar la imagen");
+    };
   });
-
-  // const bases = window.bases;
-
-  // // Añadir imágenes al final, cada una en una página separada
-  // bases.forEach(src => {
-  //   const img = new Image();
-  //   img.src = src;
-  //   img.onload = function () {
-  //     pdf.addPage(); // Añadir una nueva página para cada imagen
-  //     pdf.addImage(this.src, "JPEG", 20, yPosTexto, this.naturalWidth / 10, this.naturalHeight / 10);
-  //   };
-  //   img.onerror = function () {
-  //     console.error("Error al cargar la imagen");
-  //   };
-  // });
 
   // Guardar el PDF una vez que todas las imágenes se hayan cargado
   Promise.all(bases.map(img => new Promise((resolve, reject) => {
@@ -270,28 +281,28 @@ function genPDF() {
 //     } else {
 //       subarea = "";}
 
-//     const currentValues = `${nombre}${turno}${fecha}${area}${subarea}${observaciones}${inicio}${termino}${difTiempo}`;
+  //   const currentValues = `${nombre}${turno}${fecha}${area}${subarea}${observaciones}${inicio}${termino}${difTiempo}`;
 
-//     if (
-//       currentValues !== prevNombre ||
-//       currentValues !== prevTurno ||
-//       currentValues !== prevFecha
-//     ){
-//       if (index > 0) {
-//         pdf.addPage();
-//         yPosTexto = 20;
-//       }}
+  //   if (
+  //     currentValues !== prevNombre ||
+  //     currentValues !== prevTurno ||
+  //     currentValues !== prevFecha
+  //   ){
+  //     if (index > 0) {
+  //       pdf.addPage();
+  //       yPosTexto = 20;
+  //     }}
 
-//     const lines = observaciones.split('\n');
-//     acumuladorInfo += `\nNombre: ${nombre}\n \n ${turno}\n \n Fecha actual: ${fecha}\n \n Área: ${area}\n \n Equipo: ${subarea}\n \n `;
-//     acumuladorInfo += `Observaciones:\n ${observaciones}\n \n `;
-//     acumuladorInfo += `Hora de Inicio: ${inicio}\n \n Hora de Termino: ${termino}\n \n Diferencia de Tiempo: ${difTiempo}\n \n `;
+  //   const lines = observaciones.split('\n');
+  //   acumuladorInfo += `\nNombre: ${nombre}\n \n ${turno}\n \n Fecha actual: ${fecha}\n \n Área: ${area}\n \n Equipo: ${subarea}\n \n `;
+  //   acumuladorInfo += `Observaciones:\n ${observaciones}\n \n `;
+  //   acumuladorInfo += `Hora de Inicio: ${inicio}\n \n Hora de Termino: ${termino}\n \n Diferencia de Tiempo: ${difTiempo}\n \n `;
 
-//     pdf.text(8, yPosTexto, acumuladorInfo);
-//     prevNombre = currentValues;
-//     prevTurno = currentValues;
-//     prevFecha = currentValues;
-//   });
+  //   pdf.text(8, yPosTexto, acumuladorInfo);
+  //   prevNombre = currentValues;
+  //   prevTurno = currentValues;
+  //   prevFecha = currentValues;
+  // });
 
 //   const bases = window.bases;
 
