@@ -32,8 +32,7 @@ function genPDF() {
     } else if (area === "Terminacion") {
       subarea = document.getElementById(`subareaTerminacion_${sufijo}`).value;
     } else {
-      subarea = "";
-    }
+      subarea = "";}
 
     acumuladorInfo += `\nNombre: ${nombre}\n \n ${turno}\n \n Fecha actual: ${fecha}\n \n Área: ${area}\n \n Equipo: ${subarea}\n \n `;
     acumuladorInfo += `Observaciones:\n ${observaciones}\n \n `;
@@ -47,33 +46,33 @@ function genPDF() {
     acumuladorInfo = "";
   });
 
-  const bases = window.bases;
+  // const bases = window.bases;
 
-  // Añadir imágenes al final, cada una en una página separada
-  bases.forEach(src => {
-    const img = new Image();
-    img.src = src;
-    img.onload = function () {
-      pdf.addPage(); // Añadir una nueva página para cada imagen
-      pdf.addImage(this.src, "JPEG", 20, yPosTexto, this.naturalWidth / 10, this.naturalHeight / 10);
-    };
-    img.onerror = function () {
-      console.error("Error al cargar la imagen");
-    };
-  });
+  // // Añadir imágenes al final, cada una en una página separada
+  // bases.forEach(src => {
+  //   const img = new Image();
+  //   img.src = src;
+  //   img.onload = function () {
+  //     pdf.addPage(); // Añadir una nueva página para cada imagen
+  //     pdf.addImage(this.src, "JPEG", 20, yPosTexto, this.naturalWidth / 10, this.naturalHeight / 10);
+  //   };
+  //   img.onerror = function () {
+  //     console.error("Error al cargar la imagen");
+  //   };
+  // });
 
-  // Guardar el PDF una vez que todas las imágenes se hayan cargado
-  Promise.all(bases.map(img => new Promise((resolve, reject) => {
-    const image = new Image();
-    image.src = img;
-    image.onload = resolve;
-    image.onerror = reject;
-  }))).then(() => {
-    pdf.save("Bitácora " + nombre + " " + fecha + ".pdf");
-  }).catch(error => {
-    console.error(error);
-    alert("Hubo un error al cargar las imágenes.");
-  });
+  // // Guardar el PDF una vez que todas las imágenes se hayan cargado
+  // Promise.all(bases.map(img => new Promise((resolve, reject) => {
+  //   const image = new Image();
+  //   image.src = img;
+  //   image.onload = resolve;
+  //   image.onerror = reject;
+  // }))).then(() => {
+  //   pdf.save("Bitácora " + nombre + " " + fecha + ".pdf");
+  // }).catch(error => {
+  //   console.error(error);
+  //   alert("Hubo un error al cargar las imágenes.");
+  // });
 }
 
 
