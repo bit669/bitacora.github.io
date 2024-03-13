@@ -2,6 +2,7 @@ function genPDF() {
   let prevNombre = null;
   let prevTurno = null;
   let prevFecha = null;
+  const Bitácora = document.getElementById("Bitácora").value;
   const nombre = document.getElementById("nombre").value;
   const turno = document.getElementById("turno").value;
   const fecha = document.getElementById("fecha").value;
@@ -14,7 +15,7 @@ function genPDF() {
   pdf.rect(0, 0, pdf.internal.pageSize.width, 15, 'F');
   pdf.setTextColor(255, 255, 255);
   pdf.setFontSize(18);
-  pdf.text(8, 10, "Bitácora de turno");
+  pdf.text(8, 10, "Bitácora de turno " + Bitácora);
   pdf.setFillColor(255, 255, 255); // Blanco
   pdf.setTextColor(0, 0, 0); // Negro
   pdf.setFontSize(18);
@@ -82,7 +83,7 @@ function genPDF() {
     image.onload = resolve;
     image.onerror = reject;
   }))).then(() => {
-    pdf.save("Bitácora " + nombre + " " + fecha + ".pdf");
+    pdf.save("Bitácora " + " " + Bitácora + " " + nombre + " " + fecha + ".pdf");
   }).catch(error => {
     console.error(error);
     alert("Hubo un error al cargar las imágenes.");
