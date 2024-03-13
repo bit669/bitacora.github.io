@@ -17,7 +17,7 @@ function genPDF() {
   pdf.setFontSize(18);
 
   elementos.forEach(function (elemento, index) {
-    
+    let acumuladorInfo = "";
     const sufijo = elemento.dataset.sufijo;
     const area = document.getElementById(`area_${sufijo}`).value;
     const inicio = document.getElementById(`inicio_${sufijo}`).value;
@@ -44,7 +44,7 @@ function genPDF() {
       pdf.addPage();
     }
     pdf.text(8, yPosTexto, acumuladorInfo);
-    let acumuladorInfo = "";
+    acumuladorInfo = "";
   });
 
   const bases = window.bases;
