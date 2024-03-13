@@ -61,18 +61,18 @@ function genPDF() {
   //   };
   // });
 
-  // // Guardar el PDF una vez que todas las imágenes se hayan cargado
-  // Promise.all(bases.map(img => new Promise((resolve, reject) => {
-  //   const image = new Image();
-  //   image.src = img;
-  //   image.onload = resolve;
-  //   image.onerror = reject;
-  // }))).then(() => {
-  //   pdf.save("Bitácora " + nombre + " " + fecha + ".pdf");
-  // }).catch(error => {
-  //   console.error(error);
-  //   alert("Hubo un error al cargar las imágenes.");
-  // });
+  // Guardar el PDF una vez que todas las imágenes se hayan cargado
+  Promise.all(bases.map(img => new Promise((resolve, reject) => {
+    const image = new Image();
+    image.src = img;
+    image.onload = resolve;
+    image.onerror = reject;
+  }))).then(() => {
+    pdf.save("Bitácora " + nombre + " " + fecha + ".pdf");
+  }).catch(error => {
+    console.error(error);
+    alert("Hubo un error al cargar las imágenes.");
+  });
 }
 
 
