@@ -83,7 +83,7 @@ function genPDF() {
     image.onload = resolve;
     image.onerror = reject;
   }))).then(() => {
-    pdf.save("Bitácora" + " " + Bitácora + " " + nombre + " " + fecha + ".pdf");
+    pdf.save("Bitácora" + " " + Bitácora + " " + nombre + " " + fecha + " " + inicio.replace(':','.') + ".pdf");
   }).catch(error => {
     console.error(error);
     alert("Hubo un error al cargar las imágenes.");
