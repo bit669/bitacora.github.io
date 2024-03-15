@@ -20,7 +20,6 @@ function genPDF() {
   pdf.setFillColor(255, 255, 255); // Blanco
   pdf.setTextColor(0, 0, 0); // Negro
   pdf.setFontSize(18);
-
   elementos.forEach(function (elemento, index) {
     let acumuladorInfo = "";
     const sufijo = elemento.dataset.sufijo;
@@ -38,7 +37,6 @@ function genPDF() {
       subarea = document.getElementById(`subareaTerminacion_${sufijo}`).value;
     } else {
       subarea = "";}
-
     const currentValues = `${nombre}${turno}${fecha}${area}${subarea}${observaciones}${inicio}${termino}${difTiempo}`;
     if (
       currentValues !== prevNombre ||
@@ -54,29 +52,25 @@ function genPDF() {
     observaciones = pdf.splitTextToSize(observaciones, maxLineLength);
     acumuladorInfo += `\nNombre: ${nombre}\n \nTurno: ${turno}\n \nFecha actual: ${fecha}\n \nÁrea: ${area}\n \nEquipo: ${subarea}\n \nObservaciones: \n`;
     observaciones.forEach(line => {
-    acumuladorInfo += `${line} \n`;
-    });
+    acumuladorInfo += `${line} \n`;});
     acumuladorInfo += `\nHora de Inicio: ${inicio}\n \nHora de Termino: ${termino}\n \nDiferencia de Tiempo: ${difTiempo}`;
-
     pdf.text(8, yPosTexto, acumuladorInfo.split('\n'));
     prevNombre = currentValues;
     prevTurno = currentValues;
-    prevFecha = currentValues;
-  });
-  const bases = window.bases;
+    prevFecha = currentValues;});
+    const bases = window.bases;
 
 // Añadir imágenes al final
 bases.forEach(src => {
   const img = new Image();
   img.src = src;
   img.onload = function () {
-    pdf.addPage();
+  pdf.addPage();
 
     // Comprobar si la imagen está en horizontal
     if (this.naturalWidth > this.naturalHeight) {
       // Rotar la imagen 90
       pdf.addImage(this.src, "JPEG", 42, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16, 'NONE', 'NONE', 90);
-      
     } else {
       // Si no es horizontal, añadir la imagen
       pdf.addImage(this.src, "JPEG", 42, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16);}};
