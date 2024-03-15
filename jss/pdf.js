@@ -70,6 +70,7 @@ bases.forEach(src => {
   img.src = src;
   img.onload = function () {
     pdf.addPage(); // Añadir una nueva página para cada imagen
+    
     // Comprobar si la imagen está en orientación horizontal
     if (this.naturalWidth > this.naturalHeight) {
       // Rotar la imagen 90 grados si es horizontal
