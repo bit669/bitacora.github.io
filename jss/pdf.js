@@ -70,20 +70,37 @@ bases.forEach(src => {
   img.src = src;
   img.onload = function () {
     pdf.addPage(); // Añadir una nueva página para cada imagen
-    
-    // Comprobar si la imagen está en orientación horizontal
+
+    // Crear un canvas para poder rotar la imagen
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Configurar el tamaño del canvas al tamaño de la imagen
+    canvas.width = this.naturalWidth;
+    canvas.height = this.naturalHeight;
+
+    // Colocar la imagen en el canvas
+    ctx.drawImage(this, 0, 0);
+
+    // Rotar la imagen 90 grados si es horizontal
     if (this.naturalWidth > this.naturalHeight) {
-      // Rotar la imagen 90 grados si es horizontal
-      pdf.addImage(this.src, "JPEG", 10, yPosImagenes, this.naturalWidth / 15, this.naturalHeight / 15, 'NONE', 'NONE', 90);
-    } else {
-      // Si no es horizontal, añadir la imagen sin rotar
-      pdf.addImage(this.src, "JPEG", 10, yPosImagenes, this.naturalWidth / 15, this.naturalHeight / 15);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.rotate(90 * Math.PI / 180);
+      ctx.drawImage(this, -this.naturalWidth / 2, -this.naturalHeight / 2);
     }
+
+    // Convertir el canvas a data URI
+    const dataURI = canvas.toDataURL('image/jpeg');
+
+    // Añadir la imagen rotada al PDF
+    pdf.addImage(dataURI, 'JPEG', 10, yPosImagenes, this.naturalWidth / 15, this.naturalHeight / 15);
   };
   img.onerror = function () {
     console.error("Error al cargar la imagen");
   };
-  });
+});
+
 
   // Guardar el PDF una vez que todas las imágenes se hayan cargado
   Promise.all(bases.map(img => new Promise((resolve, reject) => {
