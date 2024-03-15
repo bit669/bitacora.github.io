@@ -70,7 +70,7 @@ function genPDF() {
     img.src = src;
     img.onload = function () {
       pdf.addPage(); // Añadir una nueva página para cada imagen
-      pdf.addImage(this.src, "JPEG", 20, yPosImagenes, this.naturalWidth / 15, this.naturalHeight / 15);
+      pdf.addImage(this.src, "JPEG", 10, yPosImagenes, this.naturalWidth / 15, this.naturalHeight / 15);
     };
     img.onerror = function () {
       console.error("Error al cargar la imagen");
