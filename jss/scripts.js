@@ -1,45 +1,47 @@
 var bases = [];
 document.addEventListener('DOMContentLoaded', function () {
-    // generar previsualizaciones
-    function createPreview(file, sufijo) {
-        var imgCodified = URL.createObjectURL(file);
-        var imgElement = $('<img src="' + imgCodified + '" alt="Foto del usuario">');
-        imgElement.attr('data-index', bases.length);
-        var esHorizontal = img.width > img.height;
-        if (esHorizontal) {
-            imgElement.attr('data-es-horizontal', 'true');
-        }
-        var imgContainer = $('<div class="col-md-3 col-sm-4 col-xs-12"><div class="image-container"> <figure>');
-        imgContainer.append(imgElement);
-        imgContainer.append('<figcaption> <i class="icon-cross"></i> </figcaption> </figure> </div></div>');
-        imgContainer.insertBefore(`#add-photo-container${sufijo}`);
-    }
-
-    // convertir imagen a base64
-    async function convertirImagen(file) {
-        var canvas = document.createElement("canvas");
-        var ctx = canvas.getContext("2d");
-        var img = new Image();
-        var url = URL.createObjectURL(file);
-        img.src = url;
-        return new Promise((resolve, reject) => {
-            img.onload = function() {
-                var esHorizontal = img.width > img.height;
-                if (esHorizontal) {
-                    canvas.width = img.height;
-                    canvas.height = img.width;
-                    ctx.rotate(Math.PI / 2);
-                    ctx.drawImage(img, 0, -img.height);
-                } else {
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    ctx.drawImage(img, 0, 0);
-                }
-                var dataURL = canvas.toDataURL();
-                URL.revokeObjectURL(url);
-                resolve(dataURL);
-            };
-            img.onerror = function() {
+// generar previsualizaciones
+function createPreview(file, sufijo) {
+    // Crear la estructura de la imagen
+    var imgCodified = URL.createObjectURL(file);
+    // Asignar un atributo data-index con el valor de bases.length
+    var imgContainer = $('<div class="col-md-3 col-sm-4 col-xs-12"><div class="image-container"> <figure> <img src="' + imgCodified + '" alt="Foto del usuario" data-index="' + bases.length + '"> <figcaption> <i class="icon-cross"></i> </figcaption> </figure> </div></div>');
+    // Vincula el evento de clic en la cámara al botón subir imágenes
+    imgContainer.insertBefore(`#add-photo-container${sufijo}`);
+    $(`#add-photo${sufijo}`).on('click', function () {
+        $(`#add-new-photo${sufijo}`).click();});}
+// convertir imagen a base64
+async function convertirImagen(file) {
+    var canvas = document.createElement("canvas");
+    var ctx = canvas.getContext("2d");
+    var img = new Image();
+    // Crear y asignar una url temporal
+    var url = URL.createObjectURL(file);
+    img.src = url;
+    // Esperar para que la imagen se cargue
+    return new Promise((resolve, reject) => {
+        // Asignar una función al onload
+        img.onload = function() {
+            // Detectar si la imagen es horizontal
+            var esHorizontal = img.width > img.height;
+            if (esHorizontal) {
+                // Ajustar el tamaño del canvas y Rotar imagen
+                canvas.width = img.height;
+                canvas.height = img.width;
+                ctx.rotate(Math.PI / 2);
+                ctx.drawImage(img, 0, -img.height);
+            } else {
+                // Ajustar el tamaño del canvas
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);}
+            // Obtener el código base64
+            var dataURL = canvas.toDataURL();
+            URL.revokeObjectURL(url);
+            // Resolver la promesa
+            resolve(dataURL);};
+        // Asignar una función al onerror
+        img.onerror = function() {
             reject("Error al cargar la imagen");};});}
 $(document).ready(async function(){
     $(".modal").on("click", function (e) {
