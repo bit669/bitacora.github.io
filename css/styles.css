@@ -34,8 +34,6 @@ header {
     color: #fff;
     margin-right: -15px;
     margin-left: -15px;
-    width: 100vw; /* Asegura que el header tenga el ancho completo de la ventana */
-    position: fixed; /* Opcional: fija el header en la parte superior al hacer scroll */
     left: 0; /* Alinea el header al lado izquierdo de la ventana gráfica */
     top: 0; /* Alinea el header al lado superior de la ventana gráfica */
     z-index: 10; /* Asegura que el header se muestre sobre otros elementos */
