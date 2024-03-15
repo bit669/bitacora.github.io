@@ -102,6 +102,7 @@ bases.forEach(src => {
 });
 
 
+
   // Guardar el PDF una vez que todas las imágenes se hayan cargado
   Promise.all(bases.map(img => new Promise((resolve, reject) => {
     const image = new Image();
