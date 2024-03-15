@@ -28,7 +28,7 @@ function genPDF() {
     const inicio = document.getElementById(`inicio_${sufijo}`).value;
     const termino = document.getElementById(`termino_${sufijo}`).value;
     const difTiempo = document.getElementById(`difTiempo_${sufijo}`).value;
-    const observaciones = document.getElementById(`observaciones_${sufijo}`).value;
+    let observaciones = document.getElementById(`observaciones_${sufijo}`).value;
     let subarea;
     if (area === "Chapas") {
       subarea = document.getElementById(`subareaChapas_${sufijo}`).value;
@@ -37,30 +37,37 @@ function genPDF() {
     } else if (area === "Terminacion") {
       subarea = document.getElementById(`subareaTerminacion_${sufijo}`).value;
     } else {
-      subarea = "";}
+      subarea = "";
+    }
 
-      const currentValues = `${nombre}${turno}${fecha}${area}${subarea}${observaciones}${inicio}${termino}${difTiempo}`;
+    const currentValues = `${nombre}${turno}${fecha}${area}${subarea}${observaciones}${inicio}${termino}${difTiempo}`;
 
-      if (
-        currentValues !== prevNombre ||
-        currentValues !== prevTurno ||
-        currentValues !== prevFecha
-      ){
-        if (index > 0) {
-          pdf.addPage();
-          yPosTexto = 20;
-        }}
-  
-      const lines = observaciones.split('\n');
-      acumuladorInfo += `\n Nombre: ${nombre}\n \n ${turno}\n \n Fecha actual: ${fecha}\n \n Área: ${area}\n \n Equipo: ${subarea}\n \n `;
-      acumuladorInfo += `Observaciones : ${observaciones}\n \n `;
-      acumuladorInfo += `Hora de Inicio: ${inicio}\n \n Hora de Termino: ${termino}\n \n Diferencia de Tiempo: ${difTiempo}\n \n `;
-  
-      pdf.text(8, yPosTexto, acumuladorInfo);
-      prevNombre = currentValues;
-      prevTurno = currentValues;
-      prevFecha = currentValues;
+    if (
+      currentValues !== prevNombre ||
+      currentValues !== prevTurno ||
+      currentValues !== prevFecha
+    ){
+      if (index > 0) {
+        pdf.addPage();
+        yPosTexto = 20;
+      }
+    }
+
+    // Dividir las observaciones en líneas si exceden los 60 caracteres
+    const maxLineLength = 60;
+    observaciones = pdf.splitTextToSize(observaciones, maxLineLength);
+
+    acumuladorInfo += `Nombre: ${nombre}\nTurno: ${turno}\nFecha actual: ${fecha}\nÁrea: ${area}\nEquipo: ${subarea}\n`;
+    observaciones.forEach(line => {
+      acumuladorInfo += `Observaciones: ${line}\n`;
     });
+    acumuladorInfo += `Hora de Inicio: ${inicio}\nHora de Termino: ${termino}\nDiferencia de Tiempo: ${difTiempo}\n`;
+
+    pdf.text(8, yPosTexto, acumuladorInfo.split('\n'));
+    prevNombre = currentValues;
+    prevTurno = currentValues;
+    prevFecha = currentValues;
+  });
 
   const bases = window.bases;
 
