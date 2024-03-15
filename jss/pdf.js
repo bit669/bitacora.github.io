@@ -1,15 +1,12 @@
 function genPDF() {
-  let prevNombre = null;
-  let prevTurno = null;
-  let prevFecha = null;
+  let prevNombre = null; let prevTurno = null; let prevFecha = null;
   const Bitácora = document.getElementById("Bitácora").value;
   const nombre = document.getElementById("nombre").value;
   const turno = document.getElementById("turno").value;
   const fecha = document.getElementById("fecha").value;
   const elementos = document.querySelectorAll('[data-sufijo]');
   const pdf = new jsPDF();
-  let yPosTexto = 20;
-  let yPosImagenes = 10;
+  let yPosTexto = 20; let yPosImagenes = 10;
 
   // Configurar encabezado y contenido
   pdf.setFillColor(31, 79, 120); // Relleno azul
@@ -60,8 +57,8 @@ function genPDF() {
     prevFecha = currentValues;});
     const bases = window.bases;
 
-// Añadir imágenes al final
-bases.forEach(src => {
+  // Añadir imágenes al final
+  bases.forEach(src => {
   const img = new Image();
   img.src = src;
   img.onload = function () {
@@ -88,5 +85,4 @@ bases.forEach(src => {
     pdf.save("Bitácora" + " " + Bitácora + " " + turno + " " + nombre + " " + fecha + ".pdf");
   }).catch(error => {
     console.error(error);
-    alert("Hubo un error al cargar las imágenes.");});
-}
+    alert("Hubo un error al cargar las imágenes.");});}
