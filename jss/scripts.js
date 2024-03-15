@@ -25,11 +25,20 @@ async function convertirImagen(file) {
     return new Promise((resolve, reject) => {
         // Asignar una función al onload
         img.onload = function() {
-            // Ajustar el tamaño
-            canvas.width = img.width;
-            canvas.height = img.height;
-            // Dibujar la imagen en el canvas
-            ctx.drawImage(img, 0, 0);
+            // Detectar si la imagen es horizontal
+            var esHorizontal = img.width > img.height;
+            // Ajustar el tamaño del canvas y rotar si es necesario
+            if (esHorizontal) {
+                canvas.width = img.height;
+                canvas.height = img.width;
+                ctx.translate(canvas.width / 2, canvas.height / 2);
+                ctx.rotate(Math.PI / 2); // Rotar 90 grados
+                ctx.drawImage(img, -img.height / 2, -img.width / 2);
+            } else {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+            }
             // Obtener el código base64
             var dataURL = canvas.toDataURL();
             // Liberar la url temporal
@@ -44,6 +53,7 @@ async function convertirImagen(file) {
         };
     });
 }
+
 $(document).ready(async function(){
     // Modal
     $(".modal").on("click", function (e) {
