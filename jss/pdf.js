@@ -74,11 +74,11 @@ bases.forEach(src => {
     // Comprobar si la imagen está en orientación horizontal
     if (this.naturalWidth > this.naturalHeight) {
       // Rotar la imagen 90 grados si es horizontal
-      pdf.addImage(this.src, "JPEG", 10, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16, 'NONE', 'NONE', 90);
+      pdf.addImage(this.src, "JPEG", 50, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16, 'NONE', 'NONE', 90);
       
     } else {
       // Si no es horizontal, añadir la imagen sin rotar
-      pdf.addImage(this.src, "JPEG", 10, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16);
+      pdf.addImage(this.src, "JPEG", 50, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16);
     }
   };
   img.onerror = function () {
