@@ -54,14 +54,14 @@ function genPDF() {
     }
 
     // Dividir las observaciones en líneas si exceden los 60 caracteres
-    const maxLineLength = 60;
+    const maxLineLength = 120;
     observaciones = pdf.splitTextToSize(observaciones, maxLineLength);
 
-    acumuladorInfo += `Nombre: ${nombre}\nTurno: ${turno}\nFecha actual: ${fecha}\nÁrea: ${area}\nEquipo: ${subarea}\n Observaciones: \n`;
+    acumuladorInfo += `\nNombre: ${nombre}\n \nTurno: ${turno}\n \nFecha actual: ${fecha}\n \nÁrea: ${area}\n \nEquipo: ${subarea}\n \n Observaciones: \n`;
     observaciones.forEach(line => {
-      acumuladorInfo += `${line}\n`;
+      acumuladorInfo += `${line}\n \n`;
     });
-    acumuladorInfo += `Hora de Inicio: ${inicio}\nHora de Termino: ${termino}\nDiferencia de Tiempo: ${difTiempo}\n`;
+    acumuladorInfo += `Hora de Inicio: ${inicio}\n \nHora de Termino: ${termino}\n \nDiferencia de Tiempo: ${difTiempo}`;
 
     pdf.text(8, yPosTexto, acumuladorInfo.split('\n'));
     prevNombre = currentValues;
