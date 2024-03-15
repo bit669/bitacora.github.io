@@ -64,17 +64,24 @@ function genPDF() {
 
   const bases = window.bases;
 
-  // Añadir imágenes al final, cada una en una página separada
-  bases.forEach(src => {
-    const img = new Image();
-    img.src = src;
-    img.onload = function () {
-      pdf.addPage(); // Añadir una nueva página para cada imagen
+// Añadir imágenes al final, cada una en una página separada
+bases.forEach(src => {
+  const img = new Image();
+  img.src = src;
+  img.onload = function () {
+    pdf.addPage(); // Añadir una nueva página para cada imagen
+    // Comprobar si la imagen está en orientación horizontal
+    if (this.naturalWidth > this.naturalHeight) {
+      // Rotar la imagen 90 grados si es horizontal
+      pdf.addImage(this.src, "JPEG", 10, yPosImagenes, this.naturalWidth / 15, this.naturalHeight / 15, 'NONE', 'NONE', 90);
+    } else {
+      // Si no es horizontal, añadir la imagen sin rotar
       pdf.addImage(this.src, "JPEG", 10, yPosImagenes, this.naturalWidth / 15, this.naturalHeight / 15);
-    };
-    img.onerror = function () {
-      console.error("Error al cargar la imagen");
-    };
+    }
+  };
+  img.onerror = function () {
+    console.error("Error al cargar la imagen");
+  };
   });
 
   // Guardar el PDF una vez que todas las imágenes se hayan cargado
