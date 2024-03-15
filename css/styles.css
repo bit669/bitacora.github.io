@@ -206,3 +206,14 @@ form textarea{
     max-height: 150px;
     margin-top: 10px;
 }
+
+
+.image-container img {
+    max-width: 100%; /* Asegura que la imagen no sea más ancha que su contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+}
+
+/* Estilo específico para imágenes horizontales */
+.image-container img[data-es-horizontal="true"] {
+    max-width: 75%; /* Reduce el ancho máximo para imágenes horizontales */
+}
