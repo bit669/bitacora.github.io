@@ -64,44 +64,46 @@ function genPDF() {
 
   const bases = window.bases;
 
-// Añadir imágenes al final, cada una en una página separada
-bases.forEach(src => {
-  const img = new Image();
-  img.src = src;
-  img.onload = function () {
-    pdf.addPage(); // Añadir una nueva página para cada imagen
+  // Añadir imágenes al final, cada una en una página separada
+  bases.forEach(src => {
+    const img = new Image();
+    img.src = src;
+    img.onload = function () {
+      pdf.addPage(); // Añadir una nueva página para cada imagen
 
-    // Crear un canvas para poder rotar la imagen
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+      // Crear un canvas para poder rotar la imagen
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
 
-    // Configurar el tamaño del canvas al tamaño de la imagen
-    canvas.width = this.naturalWidth;
-    canvas.height = this.naturalHeight;
+      // Configurar el tamaño del canvas al tamaño de la imagen
+      canvas.width = this.naturalWidth;
+      canvas.height = this.naturalHeight;
 
-    // Colocar la imagen en el canvas
-    ctx.drawImage(this, 0, 0);
+      // Colocar la imagen en el canvas
+      ctx.drawImage(this, 0, 0);
 
-    // Rotar la imagen 90 grados si es horizontal
-    if (this.naturalWidth > this.naturalHeight) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.translate(canvas.width / 2, canvas.height / 2);
-      ctx.rotate(90 * Math.PI / 180);
-      ctx.drawImage(this, -this.naturalWidth / 2, -this.naturalHeight / 2);
-    }
+      // Rotar la imagen 90 grados si es horizontal
+      if (this.naturalWidth > this.naturalHeight) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+        ctx.rotate(90 * Math.PI / 180);
+        ctx.drawImage(this, -this.naturalHeight / 2, -this.naturalWidth / 2, this.naturalWidth, this.naturalHeight);
+      }
 
-    // Convertir el canvas a data URI
-    const dataURI = canvas.toDataURL('image/jpeg');
+      // Convertir el canvas a data URI
+      const dataURI = canvas.toDataURL('image/jpeg');
 
-    // Añadir la imagen rotada al PDF
-    pdf.addImage(dataURI, 'JPEG', 10, yPosImagenes, this.naturalWidth / 15, this.naturalHeight / 15);
-  };
-  img.onerror = function () {
-    console.error("Error al cargar la imagen");
-  };
-});
-
-
+      // Añadir la imagen rotada al PDF
+      if (this.naturalWidth > this.naturalHeight) {
+        pdf.addImage(dataURI, 'JPEG', 0, (pdf.internal.pageSize.getWidth() - this.naturalHeight / 15) / 2, this.naturalHeight / 15, this.naturalWidth / 15);
+      } else {
+        pdf.addImage(dataURI, 'JPEG', 10, yPosImagenes, this.naturalWidth / 15, this.naturalHeight / 15);
+      }
+    };
+    img.onerror = function () {
+      console.error("Error al cargar la imagen");
+    };
+  });
 
   // Guardar el PDF una vez que todas las imágenes se hayan cargado
   Promise.all(bases.map(img => new Promise((resolve, reject) => {
