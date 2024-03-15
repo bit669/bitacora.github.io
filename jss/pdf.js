@@ -70,17 +70,21 @@ bases.forEach(src => {
   img.src = src;
   img.onload = function () {
     pdf.addPage(); // Añadir una nueva página para cada imagen
-
+  
+    // Calcular las coordenadas x e y para centrar la imagen
+    var xCentro = (pdf.internal.pageSize.getWidth() - this.naturalWidth / 16) / 2;
+    var yCentro = (pdf.internal.pageSize.getHeight() - this.naturalHeight / 16) / 2;
+  
     // Comprobar si la imagen está en orientación horizontal
     if (this.naturalWidth > this.naturalHeight) {
-      // Rotar la imagen 90 grados si es horizontal
-      pdf.addImage(this.src, "JPEG", 10, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16, 'NONE', 'NONE', 90);
-      
+      // Rotar la imagen 90 grados si es horizontal y ajustar las coordenadas
+      pdf.addImage(this.src, "JPEG", yCentro, xCentro, this.naturalHeight / 16, this.naturalWidth / 16, 'NONE', 'NONE', 90);
     } else {
-      // Si no es horizontal, añadir la imagen sin rotar
-      pdf.addImage(this.src, "JPEG", 10, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16);
+      // Si no es horizontal, añadir la imagen sin rotar centrada
+      pdf.addImage(this.src, "JPEG", xCentro, yCentro, this.naturalWidth / 16, this.naturalHeight / 16);
     }
   };
+  
   img.onerror = function () {
     console.error("Error al cargar la imagen");
   };
