@@ -9,6 +9,7 @@ function genPDF() {
   const elementos = document.querySelectorAll('[data-sufijo]');
   const pdf = new jsPDF();
   let yPosTexto = 20;
+  let yPosImagenes = 10;
 
   // Configurar encabezado y contenido
   pdf.setFillColor(31, 79, 120); // Relleno azul
@@ -69,7 +70,7 @@ function genPDF() {
     img.src = src;
     img.onload = function () {
       pdf.addPage(); // Añadir una nueva página para cada imagen
-      pdf.addImage(this.src, "JPEG", 20, yPosTexto, this.naturalWidth / 10, this.naturalHeight / 10);
+      pdf.addImage(this.src, "JPEG", 20, yPosImagenes, this.naturalWidth / 15, this.naturalHeight / 15);
     };
     img.onerror = function () {
       console.error("Error al cargar la imagen");
@@ -83,7 +84,7 @@ function genPDF() {
     image.onload = resolve;
     image.onerror = reject;
   }))).then(() => {
-    pdf.save("Bitácora" + " " + Bitácora + " " + " " + turno + " " + nombre + " " + fecha + ".pdf");
+    pdf.save("Bitácora" + " " + Bitácora + " " + turno + " " + nombre + " " + fecha + ".pdf");
   }).catch(error => {
     console.error(error);
     alert("Hubo un error al cargar las imágenes.");
