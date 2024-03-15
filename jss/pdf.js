@@ -57,9 +57,9 @@ function genPDF() {
     const maxLineLength = 60;
     observaciones = pdf.splitTextToSize(observaciones, maxLineLength);
 
-    acumuladorInfo += `Nombre: ${nombre}\nTurno: ${turno}\nFecha actual: ${fecha}\nÁrea: ${area}\nEquipo: ${subarea}\n`;
+    acumuladorInfo += `Nombre: ${nombre}\nTurno: ${turno}\nFecha actual: ${fecha}\nÁrea: ${area}\nEquipo: ${subarea}\n Observaciones: `;
     observaciones.forEach(line => {
-      acumuladorInfo += `Observaciones: ${line}\n`;
+      acumuladorInfo += `${line}\n`;
     });
     acumuladorInfo += `Hora de Inicio: ${inicio}\nHora de Termino: ${termino}\nDiferencia de Tiempo: ${difTiempo}\n`;
 
