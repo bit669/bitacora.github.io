@@ -25,16 +25,17 @@ async function convertirImagen(file) {
     return new Promise((resolve, reject) => {
         // Asignar una función al onload
         img.onload = function() {
-            // Detectar si la imagen es horizontal
+            // Detectar si la imagen es horizontal y rotar si es necesario
             var esHorizontal = img.width > img.height;
-            // Ajustar el tamaño del canvas y rotar si es necesario
             if (esHorizontal) {
+                // Ajustar el tamaño del canvas para la rotación
                 canvas.width = img.height;
                 canvas.height = img.width;
-                ctx.translate(canvas.width / 2, canvas.height / 2);
-                ctx.rotate(Math.PI / 2); // Rotar 90 grados
-                ctx.drawImage(img, -img.height / 2, -img.width / 2);
+                // Rotar la imagen 90 grados
+                ctx.rotate(Math.PI / 2);
+                ctx.drawImage(img, 0, -img.height);
             } else {
+                // Ajustar el tamaño del canvas a la imagen
                 canvas.width = img.width;
                 canvas.height = img.height;
                 ctx.drawImage(img, 0, 0);
@@ -53,7 +54,6 @@ async function convertirImagen(file) {
         };
     });
 }
-
 $(document).ready(async function(){
     // Modal
     $(".modal").on("click", function (e) {
