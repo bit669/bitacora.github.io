@@ -12,7 +12,7 @@ function genPDF() {
   pdf.setFillColor(31, 79, 120); // Relleno azul
   pdf.rect(0, 0, pdf.internal.pageSize.width, 25, 'F');
   pdf.setTextColor(255, 255, 255);
-  pdf.setFontSize(18);
+  pdf.setFontSize(18); // Largo del encabezado
   pdf.text(8, 10, "Bitácora de turno " + Bitácora);
   pdf.setFillColor(255, 255, 255); // Blanco
   pdf.setTextColor(0, 0, 0); // Negro
@@ -47,7 +47,7 @@ function genPDF() {
     // Dividir las observaciones en líneas
     const maxLineLength = 190;
     observaciones = pdf.splitTextToSize(observaciones, maxLineLength);
-    acumuladorInfo += `\nNombre: ${nombre}\n \nTurno: ${turno}\n \nFecha actual: ${fecha}\n \nÁrea: ${area}\n \nEquipo: ${subarea}\n \nObservaciones: \n`;
+    acumuladorInfo += `\n \nNombre: ${nombre}\n \nTurno: ${turno}\n \nFecha actual: ${fecha}\n \nÁrea: ${area}\n \nEquipo: ${subarea}\n \nObservaciones: \n`;
     observaciones.forEach(line => {
     acumuladorInfo += `${line} \n`;});
     acumuladorInfo += `\nHora de Inicio: ${inicio}\n \nHora de Termino: ${termino}\n \nDiferencia de Tiempo: ${difTiempo}`;
