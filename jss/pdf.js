@@ -12,11 +12,11 @@ function genPDF() {
   pdf.setFillColor(31, 79, 120); // Relleno azul
   pdf.rect(0, 0, pdf.internal.pageSize.width, 25, 'F'); // Largo del encabezado
   pdf.setTextColor(255, 255, 255);
-  pdf.setFontSize(26); // Tamaño del texto
+  pdf.setFontSize(25); // Tamaño del texto
   pdf.text(8, 15, "Bitácora de turno " + Bitácora);
   pdf.setFillColor(255, 255, 255); // Blanco
   pdf.setTextColor(0, 0, 0); // Negro
-  pdf.setFontSize(16);
+  pdf.setFontSize(17);
   
   elementos.forEach(function (elemento, index) {
     let acumuladorInfo = "";
