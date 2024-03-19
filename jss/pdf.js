@@ -6,7 +6,7 @@ function genPDF() {
   const fecha = document.getElementById("fecha").value;
   const elementos = document.querySelectorAll('[data-sufijo]');
   const pdf = new jsPDF();
-  let yPosTexto = 20; let yPosImagenes = 10;
+  let yPosTexto = 20; let yPosImagenes = 10; let xPosImagenes = 42;
 
   // Configurar encabezado y contenido
   pdf.setFillColor(31, 79, 120); // Relleno azul
@@ -67,10 +67,10 @@ function genPDF() {
     // Comprobar si la imagen está en horizontal
     if (this.naturalWidth > this.naturalHeight) {
       // Rotar la imagen 90
-      pdf.addImage(this.src, "JPEG", 42, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16, 'NONE', 'NONE', 90);
+      pdf.addImage(this.src, "JPEG", xPosImagenes, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16, 'NONE', 'NONE', 90);
     } else {
       // Si no es horizontal, añadir la imagen
-      pdf.addImage(this.src, "JPEG", 42, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16);}};
+      pdf.addImage(this.src, "JPEG", xPosImagenes, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16);}};
   img.onerror = function () {
     console.error("Error al cargar la imagen");};
   });
@@ -82,7 +82,7 @@ function genPDF() {
     image.onload = resolve;
     image.onerror = reject;
   }))).then(() => {
-    pdf.save("Bitácora" + " " + Bitácora + " " + turno + " " + nombre + " " + fecha + ".pdf");
+    pdf.save("Bitácora " + Bitácora + " " + turno + " " + nombre + " " + fecha + ".pdf");
   }).catch(error => {
     console.error(error);
     alert("Hubo un error al cargar las imágenes.");});}
