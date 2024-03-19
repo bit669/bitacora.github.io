@@ -15,9 +15,19 @@ function genPDF() {
   pdf.setTextColor(255, 255, 255);
   pdf.setFontSize(25); // Tamaño del texto
   pdf.text(8, 14, "Bitácora de turno " + Bitácora);
-  agregarFuenteAlVFS(doc, 'miFuenteBase64');
-  registrarFuente(doc, 'miFuenteBase64');
-  establecerFuente(doc, 'miFuenteBase64');
+  // Guardar la fuente actual
+  var fuenteActual = doc.getFont();
+
+  // Agregar la fuente personalizada al VFS
+  doc.addFileToVFS('miFuente.ttf', miFuenteBase64);
+  doc.addFont('miFuente.ttf', 'NombreFuente', 'normal');
+
+  // Establecer la fuente personalizada para un segmento de texto
+  doc.setFont('NombreFuente');
+  doc.text(20, 20, 'Este es un texto con mi fuente personalizada.');
+
+  // Volver a la fuente predeterminada
+  doc.setFont(fuenteActual.fontName, fuenteActual.fontStyle);
   pdf.text(150, 14, "arauco");
   pdf.setFont('helvetica'); // o 'times', 'courier'
   pdf.setFontType('normal'); // o 'bold', 'italic', 'bolditalic'
