@@ -16,7 +16,7 @@ function genPDF() {
   pdf.text(8, 14, "Bitácora de turno " + Bitácora);
   pdf.addFont('arauco.ttf', 'arauco', 'normal');
   pdf.setFont('arauco'); // Establece la fuente personalizada
-  pdf.text(20, 14, "arauco");
+  pdf.text(150, 14, "arauco");
   pdf.setFont('helvetica'); // o 'times', 'courier'
   pdf.setFontType('normal'); // o 'bold', 'italic', 'bolditalic'
   pdf.setFillColor(255, 255, 255); // Blanco
