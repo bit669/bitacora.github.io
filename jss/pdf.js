@@ -11,7 +11,7 @@ function genPDF() {
   // Configurar encabezado y contenido
   pdf.setFillColor(31, 79, 120); // Relleno azul
   pdf.rect(0, 0, pdf.internal.pageSize.width, 23, 'F'); // Largo del encabezado
-  fetch('base64.txt')
+  fetch('base.txt')
   .then(response => response.text())
   .then(imgData => {
   pdf.addImage(imgData, 'JPEG', 10, 10, 180, 160);})
