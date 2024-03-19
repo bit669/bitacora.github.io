@@ -19,7 +19,7 @@ function genPDF() {
   var fuenteActual = pdf.getFont();
 
   // Agregar la fuente personalizada al VFS
-  pdf.addFileToVFS('miFuente.ttf', miFuenteBase64);
+  pdf.addFileToVFS('miFuente.ttf', 'base.txt');
   pdf.addFont('miFuente.ttf', 'NombreFuente', 'normal');
 
   // Establecer la fuente personalizada para un segmento de texto
