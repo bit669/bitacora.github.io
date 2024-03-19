@@ -1,4 +1,5 @@
 function genPDF() {
+
   let prevNombre = null; let prevTurno = null; let prevFecha = null;
   const Bitácora = document.getElementById("Bitácora").value;
   const nombre = document.getElementById("nombre").value;
@@ -14,8 +15,9 @@ function genPDF() {
   pdf.setTextColor(255, 255, 255);
   pdf.setFontSize(25); // Tamaño del texto
   pdf.text(8, 14, "Bitácora de turno " + Bitácora);
-  pdf.addFont('arauco.ttf', 'arauco');
-  pdf.setFont('arauco'); // Establece la fuente personalizada
+  agregarFuenteAlVFS(doc, 'tuCadenaBase64DeLaFuente');
+  registrarFuente(doc, 'NombreDeLaFuente');
+  establecerFuente(doc, 'NombreDeLaFuente');
   pdf.text(150, 14, "arauco");
   pdf.setFont('helvetica'); // o 'times', 'courier'
   pdf.setFontType('normal'); // o 'bold', 'italic', 'bolditalic'
