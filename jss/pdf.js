@@ -14,7 +14,7 @@ function genPDF() {
   pdf.setTextColor(255, 255, 255);
   pdf.setFontSize(25); // Tamaño del texto
   pdf.text(8, 14, "Bitácora de turno " + Bitácora);
-  pdf.addFont('arauco.ttf', 'arauco', 'normal');
+  pdf.addFont('arauco.ttf', 'arauco');
   pdf.setFont('arauco'); // Establece la fuente personalizada
   pdf.text(150, 14, "arauco");
   pdf.setFont('helvetica'); // o 'times', 'courier'
