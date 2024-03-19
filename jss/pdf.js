@@ -10,10 +10,10 @@ function genPDF() {
 
   // Configurar encabezado y contenido
   pdf.setFillColor(31, 79, 120); // Relleno azul
-  pdf.rect(0, 0, pdf.internal.pageSize.width, 25, 'F'); // Largo del encabezado
+  pdf.rect(0, 0, pdf.internal.pageSize.width, 24, 'F'); // Largo del encabezado
   pdf.setTextColor(255, 255, 255);
   pdf.setFontSize(25); // Tamaño del texto
-  pdf.text(8, 15, "Bitácora de turno " + Bitácora);
+  pdf.text(8, 14, "Bitácora de turno " + Bitácora);
   pdf.setFillColor(255, 255, 255); // Blanco
   pdf.setTextColor(0, 0, 0); // Negro
   pdf.setFontSize(17);
