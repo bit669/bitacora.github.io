@@ -13,7 +13,7 @@ function genPDF() {
   pdf.rect(0, 0, pdf.internal.pageSize.width, 25, 'F'); // Largo del encabezado
   pdf.setTextColor(255, 255, 255);
   pdf.setFontSize(32); // Tamaño del texto
-  pdf.text(8, 10, "Bitácora de turno " + Bitácora);
+  pdf.text(15, 10, "Bitácora de turno " + Bitácora);
   pdf.setFillColor(255, 255, 255); // Blanco
   pdf.setTextColor(0, 0, 0); // Negro
   pdf.setFontSize(18);
