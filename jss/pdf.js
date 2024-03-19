@@ -8,20 +8,20 @@ function genPDF() {
   const pdf = new jsPDF();
   let yPosTexto = 20; let yPosImagenes = 10; let xPosImagenes = 42;
 
-  // Configurar encabezado y contenido
+  // Encabezado y contenido
   pdf.setFillColor(31, 79, 120); // Relleno azul
-  pdf.rect(0, 0, pdf.internal.pageSize.width, 23, 'F'); // Largo del encabezado
+  pdf.rect(0, 0, pdf.internal.pageSize.width, 23, 'F');
   fetch('base.txt')
   .then(response => response.text())
   .then(imgData => {
-  pdf.addImage(imgData, 'JPEG', 10, 10, 180, 160);})
+  pdf.addImage(imgData, 'PNG', 10, 10, 90, 80);})
   pdf.setTextColor(255, 255, 255);
   pdf.setFontSize(25); // Tamaño del texto
   pdf.text(8, 14, "Bitácora de turno " + Bitácora);
-  pdf.setFillColor(255, 255, 255); // Blanco
-  pdf.setTextColor(0, 0, 0); // Negro
+  pdf.setFillColor(255, 255, 255);
+  pdf.setTextColor(0, 0, 0);
   pdf.setFontSize(17);
-  
+
   elementos.forEach(function (elemento, index) {
     let acumuladorInfo = "";
     const sufijo = elemento.dataset.sufijo;
@@ -49,7 +49,7 @@ function genPDF() {
         pdf.addPage();
         yPosTexto = 20;}}
 
-    // Dividir las observaciones en líneas
+    // Insertar texto
     const maxLineLength = 190;
     observaciones = pdf.splitTextToSize(observaciones, maxLineLength);
     acumuladorInfo += `\n \nNombre: ${nombre}\n \n${turno}\n \nFecha actual: ${fecha}\n \nÁrea: ${area}\n \nEquipo: ${subarea}\n \nObservaciones: \n`;
@@ -57,9 +57,7 @@ function genPDF() {
     acumuladorInfo += `${line} \n`;});
     acumuladorInfo += `\nHora de Inicio: ${inicio}\n \nHora de Termino: ${termino}\n \nDiferencia de Tiempo: ${difTiempo}`;
     pdf.text(8, yPosTexto, acumuladorInfo.split('\n'));
-    prevNombre = currentValues;
-    prevTurno = currentValues;
-    prevFecha = currentValues;});
+    prevNombre = currentValues; prevTurno = currentValues; prevFecha = currentValues;});
     const bases = window.bases;
 
   // Añadir imágenes al final
@@ -69,18 +67,17 @@ function genPDF() {
   img.onload = function () {
   pdf.addPage();
 
-    // Comprobar si la imagen está en horizontal
+    // Comprobar si la imagen es horizontal
     if (this.naturalWidth > this.naturalHeight) {
       // Rotar la imagen 90
       pdf.addImage(this.src, "JPEG", xPosImagenes, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16, 'NONE', 'NONE', 90);
     } else {
-      // Si no es horizontal, añadir la imagen
+      // Si no es añadir la imagen
       pdf.addImage(this.src, "JPEG", xPosImagenes, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16);}};
   img.onerror = function () {
-    console.error("Error al cargar la imagen");};
-  });
+    console.error("Error al cargar la imagen");};});
 
-  // Guardar el PDF cuando todas las imágenes se hayan cargado
+  // Guardar el PDF cuando las imágenes se hayan cargado
   Promise.all(bases.map(img => new Promise((resolve, reject) => {
     const image = new Image();
     image.src = img;
