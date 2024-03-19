@@ -15,9 +15,9 @@ function genPDF() {
   pdf.setTextColor(255, 255, 255);
   pdf.setFontSize(25); // Tamaño del texto
   pdf.text(8, 14, "Bitácora de turno " + Bitácora);
-  agregarFuenteAlVFS(doc, 'tuCadenaBase64DeLaFuente');
-  registrarFuente(doc, 'NombreDeLaFuente');
-  establecerFuente(doc, 'NombreDeLaFuente');
+  agregarFuenteAlVFS(doc, 'miFuenteBase64');
+  registrarFuente(doc, 'miFuenteBase64');
+  establecerFuente(doc, 'miFuenteBase64');
   pdf.text(150, 14, "arauco");
   pdf.setFont('helvetica'); // o 'times', 'courier'
   pdf.setFontType('normal'); // o 'bold', 'italic', 'bolditalic'

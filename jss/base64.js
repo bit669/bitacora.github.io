@@ -9,12 +9,12 @@ export function agregarFuenteAlVFS(doc, miFuenteBase64) {
   }
   
   // Función para registrar la fuente en jsPDF
-  export function registrarFuente(doc, nombreFuente) {
-    doc.addFont('miFuente.ttf', nombreFuente, 'normal');
+  export function registrarFuente(doc, miFuenteBase64) {
+    doc.addFont('miFuente.ttf', miFuenteBase64, 'normal');
   }
   
   // Función para establecer la fuente en el documento
-  export function establecerFuente(doc, nombreFuente) {
-    doc.setFont(nombreFuente);
+  export function establecerFuente(doc, miFuenteBase64) {
+    doc.setFont(miFuenteBase64);
   }
   
