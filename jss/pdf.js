@@ -16,7 +16,7 @@ function genPDF() {
   pdf.setFontSize(25); // Tamaño del texto
   pdf.text(8, 14, "Bitácora de turno " + Bitácora);
   // Guardar la fuente actual
-  var fuenteActual = doc.getFont();
+  var fuenteActual = pdf.getFont();
 
   // Agregar la fuente personalizada al VFS
   pdf.addFileToVFS('miFuente.ttf', miFuenteBase64);
