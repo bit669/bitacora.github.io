@@ -16,7 +16,7 @@ function genPDF() {
   pdf.text(8, 15, "Bitácora de turno " + Bitácora);
   pdf.setFillColor(255, 255, 255); // Blanco
   pdf.setTextColor(0, 0, 0); // Negro
-  pdf.setFontSize(18);
+  pdf.setFontSize(16);
   
   elementos.forEach(function (elemento, index) {
     let acumuladorInfo = "";
