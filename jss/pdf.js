@@ -11,8 +11,10 @@ function genPDF() {
   // Configurar encabezado y contenido
   pdf.setFillColor(31, 79, 120); // Relleno azul
   pdf.rect(0, 0, pdf.internal.pageSize.width, 23, 'F'); // Largo del encabezado
-  var imgData = 'data:image/jpeg;base64,' + Base64.encode('ARAUCO.png');
-  doc.addImage(imgData, 'JPEG', 10, 10, 180, 160, this.naturalWidth / 16, this.naturalHeight / 16);
+  fetch('base64.txt')
+  .then(response => response.text())
+  .then(imgData => {
+  doc.addImage(imgData, 'JPEG', 10, 10, this.naturalWidth / 16, this.naturalHeight / 16);})
   pdf.setTextColor(255, 255, 255);
   pdf.setFontSize(25); // Tamaño del texto
   pdf.text(8, 14, "Bitácora de turno " + Bitácora);
