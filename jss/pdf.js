@@ -14,7 +14,7 @@ function genPDF() {
   fetch('base64.txt')
   .then(response => response.text())
   .then(imgData => {
-  doc.addImage(imgData, 'JPEG', 10, 10, this.naturalWidth / 16, this.naturalHeight / 16);})
+  pdf.addImage(imgData, 'JPEG', 10, 10, 180, 160);})
   pdf.setTextColor(255, 255, 255);
   pdf.setFontSize(25); // Tamaño del texto
   pdf.text(8, 14, "Bitácora de turno " + Bitácora);
