@@ -19,15 +19,15 @@ function genPDF() {
   var fuenteActual = doc.getFont();
 
   // Agregar la fuente personalizada al VFS
-  doc.addFileToVFS('miFuente.ttf', miFuenteBase64);
-  doc.addFont('miFuente.ttf', 'NombreFuente', 'normal');
+  pdf.addFileToVFS('miFuente.ttf', miFuenteBase64);
+  pdf.addFont('miFuente.ttf', 'NombreFuente', 'normal');
 
   // Establecer la fuente personalizada para un segmento de texto
-  doc.setFont('NombreFuente');
-  doc.text(20, 20, 'Este es un texto con mi fuente personalizada.');
+  pdf.setFont('NombreFuente');
+  pdf.text(20, 20, 'Este es un texto con mi fuente personalizada.');
 
   // Volver a la fuente predeterminada
-  doc.setFont(fuenteActual.fontName, fuenteActual.fontStyle);
+  pdf.setFont(fuenteActual.fontName, fuenteActual.fontStyle);
   pdf.text(150, 14, "arauco");
   pdf.setFont('helvetica'); // o 'times', 'courier'
   pdf.setFontType('normal'); // o 'bold', 'italic', 'bolditalic'
