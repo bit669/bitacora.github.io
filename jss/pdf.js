@@ -33,7 +33,7 @@ function genPDF() {
       pdf.setFontSize(17);})
     .catch(error => console.error('Error al leer el archivo base.txt:', error
     ));
-    yyelementos.forEach(function (elemento, index) {
+    elementos.forEach(function (elemento, index) {
     let acumuladorInfo = "";
     const sufijo = elemento.dataset.sufijo;
     const area = document.getElementById(`area_${sufijo}`).value;
