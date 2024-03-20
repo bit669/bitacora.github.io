@@ -23,22 +23,6 @@ function genPDF() {
   pdf.setTextColor(255, 255, 255);
   pdf.setFontSize(25); // Tamaño del texto
   pdf.text(8, 14, "Bitácora de turno " + Bitácora);
-  // Leer el archivo base.txt
-  fetch('base.txt')
-    .then(response => response.text())
-    .then(miFuenteBase64 => {
-      // Agregar la fuente al VFS y registrarla en jsPDF
-      agregarFuenteAlVFS(pdf, miFuenteBase64);
-      registrarFuente(pdf, 'NombreFuente');
-      // Establecer la fuente personalizada para un segmento de texto
-      establecerFuente(pdf, 'NombreFuente');
-      pdf.text(150, 14, "arauco");
-      // Continuar con la fuente predeterminada
-      pdf.setFont('helvetica');
-      pdf.setFontType('normal');
-      pdf.setFontSize(17);})
-    .catch(error => console.error('Error al leer el archivo base.txt:', error
-    ));
     elementos.forEach(function (elemento, index) {
     let acumuladorInfo = "";
     const sufijo = elemento.dataset.sufijo;
@@ -77,6 +61,23 @@ function genPDF() {
     prevTurno = currentValues;
     prevFecha = currentValues;});
     const bases = window.bases;
+
+      // Leer el archivo base.txt
+  fetch('base.txt')
+  .then(response => response.text())
+  .then(miFuenteBase64 => {
+    // Agregar la fuente al VFS y registrarla en jsPDF
+    agregarFuenteAlVFS(pdf, miFuenteBase64);
+    registrarFuente(pdf, 'NombreFuente');
+    // Establecer la fuente personalizada para un segmento de texto
+    establecerFuente(pdf, 'NombreFuente');
+    pdf.text(150, 14, "arauco");
+    // Continuar con la fuente predeterminada
+    pdf.setFont('helvetica');
+    pdf.setFontType('normal');
+    pdf.setFontSize(17);})
+  .catch(error => console.error('Error al leer el archivo base.txt:', error
+  ));
 
   // Añadir imágenes al final
   bases.forEach(src => {
