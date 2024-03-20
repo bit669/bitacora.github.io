@@ -81,14 +81,10 @@ $(document).ready(async function(){
         $(this).parent().remove();});});});
 
 
-window.onload = function() {
-    // Asignar la ruta de la imagen al elemento 'img' con id 'imagenLocal'
-    document.getElementById('imagenLocal').src = 'ARAUCO.png';};
-  
-// Función para cargar una imagen desde una ruta local y convertirla a base64
-function cargarImagenLocalYConvertirABase64() {
+// Función para convertir la imagen referenciada a base64
+function convertirImagenABase64() {
     return new Promise((resolve, reject) => {
-        var img = new Image();
+        var img = document.getElementById('imagenLocal');
         img.onload = function () {
             var canvas = document.createElement('canvas');
             canvas.width = this.naturalWidth;
@@ -101,15 +97,13 @@ function cargarImagenLocalYConvertirABase64() {
         img.onerror = function (e) {
             reject(new Error('No se pudo cargar la imagen: ' + e.message));
         };
-        // Asignar la ruta de la imagen directamente aquí
-        img.src = 'ARAUCO.png';
     });
 }
 
 // Arreglo para almacenar las imágenes en base64
 var imagenes = [];
 
-cargarImagenLocalYConvertirABase64()
+convertirImagenABase64()
     .then(base64 => {
         // Cargar la imagen en el arreglo 'imagenes'
         imagenes.push(base64);
