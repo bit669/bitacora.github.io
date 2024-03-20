@@ -81,34 +81,38 @@ $(document).ready(async function(){
         $(this).parent().remove();});});});
 
 
-// Función para convertir la imagen referenciada a base64
-function convertirImagenABase64() {
+// Función para cargar una imagen desde una ruta local y convertirla a base64
+async function cargarImagenLocalYConvertirABase64() {
+    var img = new Image();
+    img.crossOrigin = 'anonymous';
+    // Usamos una promesa para esperar a que la imagen se cargue
     return new Promise((resolve, reject) => {
-        var img = document.getElementById('imagenLocal');
-        img.onload = function () {
+        img.onload = () => {
             var canvas = document.createElement('canvas');
-            canvas.width = this.naturalWidth;
-            canvas.height = this.naturalHeight;
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
             var ctx = canvas.getContext('2d');
-            ctx.drawImage(this, 0, 0);
+            ctx.drawImage(img, 0, 0);
             var dataURL = canvas.toDataURL('image/png');
             resolve(dataURL);
         };
-        img.onerror = function (e) {
+        img.onerror = (e) => {
             reject(new Error('No se pudo cargar la imagen: ' + e.message));
         };
+        img.src = 'ARAUCO.png'; // Asegúrate de que la ruta es correcta
     });
 }
 
 // Arreglo para almacenar las imágenes en base64
 var imagenes = [];
 
-convertirImagenABase64()
-    .then(base64 => {
-        // Cargar la imagen en el arreglo 'imagenes'
+// Función autoinvocada para usar async/await
+(async () => {
+    try {
+        const base64 = await cargarImagenLocalYConvertirABase64();
         imagenes.push(base64);
         console.log('Imagen cargada en el arreglo:', base64);
-    })
-    .catch(error => {
+    } catch (error) {
         console.error('Error al cargar la imagen:', error);
-    });
+    }
+})();
