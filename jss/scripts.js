@@ -85,32 +85,33 @@ $(document).ready(async function(){
 // Función para cargar una imagen desde una ruta local y convertirla a base64
 function cargarImagenLocalYConvertirABase64(rutaLocal) {
     return new Promise((resolve, reject) => {
-        // Crear un nuevo objeto de imagen
         var img = new Image();
         img.setAttribute('crossOrigin', 'anonymous'); // Tratar con imágenes de dominio cruzado
         img.onload = function () {
-            // Crear un canvas para dibujar la imagen
             var canvas = document.createElement('canvas');
             canvas.width = this.width;
             canvas.height = this.height;
             var ctx = canvas.getContext('2d');
             ctx.drawImage(this, 0, 0);
-            // Convertir la imagen a base64
             var dataURL = canvas.toDataURL('image/png');
             resolve(dataURL);
         };
         img.onerror = function () {
             reject(new Error('No se pudo cargar la imagen'));
         };
-        // Asignar la ruta de la imagen al src para iniciar la carga
         img.src = rutaLocal;
     });
 }
 
+// Arreglo para almacenar las imágenes en base64
+var imagenes = [];
+
 cargarImagenLocalYConvertirABase64('ARAUCO.png')
-    .then(bases => {
-        // cargar la imagen en tu arreglo
-        bases.push(bases);
-        console.log('Imagen cargada en el arreglo:', bases);})
+    .then(base64 => {
+        // Cargar la imagen en el arreglo 'imagenes'
+        imagenes.push(base64);
+        console.log('Imagen cargada en el arreglo:', base64);
+    })
     .catch(error => {
-        console.error('Error al cargar la imagen:', error);});
+        console.error('Error al cargar la imagen:', error);
+    });
