@@ -1,5 +1,4 @@
 function genPDF() {
-
   let prevNombre = null; let prevTurno = null; let prevFecha = null;
   const Bitácora = document.getElementById("Bitácora").value;
   const nombre = document.getElementById("nombre").value;
@@ -8,13 +7,16 @@ function genPDF() {
   const elementos = document.querySelectorAll('[data-sufijo]');
   const pdf = new jsPDF();
   let yPosTexto = 20; let yPosImagenes = 10; let xPosImagenes = 42;
+
   // Encabezado y contenido
   pdf.setFillColor(31, 79, 120); // Relleno azul
   pdf.rect(0, 0, pdf.internal.pageSize.width, 23, 'F'); // Largo del encabezado
   pdf.setTextColor(255, 255, 255);
   pdf.setFontSize(25); // Tamaño del texto
   pdf.text(8, 14, "Bitácora de turno " + Bitácora);
-    elementos.forEach(function (elemento, index) {
+  pdf.setFontSize(17);
+  
+  elementos.forEach(function (elemento, index) {
     let acumuladorInfo = "";
     const sufijo = elemento.dataset.sufijo;
     const area = document.getElementById(`area_${sufijo}`).value;
@@ -40,6 +42,7 @@ function genPDF() {
       if (index > 0) {
         pdf.addPage();
         yPosTexto = 20;}}
+
     // Insertar texto
     const maxLineLength = 190;
     observaciones = pdf.splitTextToSize(observaciones, maxLineLength);
@@ -59,6 +62,7 @@ function genPDF() {
   img.src = src;
   img.onload = function () {
   pdf.addPage();
+
     // Comprobar si la imagen es horizontal
     if (this.naturalWidth > this.naturalHeight) {
       pdf.addImage(this.src, "JPEG", xPosImagenes, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16, 'NONE', 'NONE', 90);
@@ -67,6 +71,7 @@ function genPDF() {
       pdf.addImage(this.src, "JPEG", xPosImagenes, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16);}};
   img.onerror = function () {
     console.error("Error al cargar la imagen");};});
+
   // Guardar el PDF cuando las imágenes se hayan cargado
   Promise.all(bases.map(img => new Promise((resolve, reject) => {
     const image = new Image();
