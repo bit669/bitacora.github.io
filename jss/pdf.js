@@ -9,6 +9,12 @@ function genPDF() {
   function establecerFuente(pdf, nombreFuente) {
     pdf.setFont(nombreFuente);}
   // Aquí comienza la creación del documento PDF
+  let prevNombre = null; let prevTurno = null; let prevFecha = null;
+  const Bitácora = document.getElementById("Bitácora").value;
+  const nombre = document.getElementById("nombre").value;
+  const turno = document.getElementById("turno").value;
+  const fecha = document.getElementById("fecha").value;
+  const elementos = document.querySelectorAll('[data-sufijo]');
   const pdf = new jsPDF();
   let yPosTexto = 20; let yPosImagenes = 10; let xPosImagenes = 42;
   // Leer el archivo base.txt
@@ -27,7 +33,7 @@ function genPDF() {
       pdf.setFontSize(17);})
     .catch(error => console.error('Error al leer el archivo base.txt:', error
     ));
-  elementos.forEach(function (elemento, index) {
+    yyelementos.forEach(function (elemento, index) {
     let acumuladorInfo = "";
     const sufijo = elemento.dataset.sufijo;
     const area = document.getElementById(`area_${sufijo}`).value;
