@@ -79,3 +79,31 @@ $(document).ready(async function(){
         // Eliminar el elemento de bases que corresponde
         bases.splice(index, 1);
         $(this).parent().remove();});});});
+
+
+
+// Función para cargar una imagen desde una ruta local y convertirla a base64
+function cargarImagenLocalYConvertirABase64(rutaLocal) {
+    return new Promise((resolve, reject) => {
+        // Crear un nuevo objeto de imagen
+        var img = new Image();
+        img.setAttribute('crossOrigin', 'anonymous'); // Tratar con imágenes de dominio cruzado
+        img.onload = function () {
+            // Crear un canvas para dibujar la imagen
+            var canvas = document.createElement('canvas');
+            canvas.width = this.width;
+            canvas.height = this.height;
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(this, 0, 0);
+            // Convertir la imagen a base64
+            var dataURL = canvas.toDataURL('image/png');
+            resolve(dataURL);
+        };
+        img.onerror = function () {
+            reject(new Error('No se pudo cargar la imagen'));
+        };
+        // Asignar la ruta de la imagen al src para iniciar la carga
+        img.src = rutaLocal;
+    });
+}
+
