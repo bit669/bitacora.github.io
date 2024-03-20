@@ -7,7 +7,6 @@ function genPDF() {
   const elementos = document.querySelectorAll('[data-sufijo]');
   const pdf = new jsPDF();
   let yPosTexto = 20; let yPosImagenes = 10; let xPosImagenes = 42;
-
   // Encabezado y contenido
   pdf.setFillColor(31, 79, 120); // Relleno azul
   pdf.rect(0, 0, pdf.internal.pageSize.width, 23, 'F'); // Largo del encabezado
@@ -17,7 +16,6 @@ function genPDF() {
   pdf.setFillColor(255, 255, 255); // Blanco
   pdf.setTextColor(0, 0, 0); // Negro
   pdf.setFontSize(17);
-  
   elementos.forEach(function (elemento, index) {
     let acumuladorInfo = "";
     const sufijo = elemento.dataset.sufijo;
