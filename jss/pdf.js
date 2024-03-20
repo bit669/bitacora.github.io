@@ -7,7 +7,6 @@ function genPDF() {
   const elementos = document.querySelectorAll('[data-sufijo]');
   const pdf = new jsPDF();
   let yPosTexto = 20; let yPosImagenes = 10; let xPosImagenes = 42;
-
   elementos.forEach(function (elemento, index) {
     // Encabezado y contenido
     pdf.setFillColor(31, 79, 120); // Relleno azul
@@ -18,6 +17,12 @@ function genPDF() {
     pdf.setFillColor(255, 255, 255); // Blanco
     pdf.setTextColor(0, 0, 0); // Negro
     pdf.setFontSize(17);
+    // imagen del encabezado
+    var img = new Image();
+    img.onload = function() {
+      pdf.addImage(this, 'PNG', 10, 5, 40, 15);}; // coordenadas y tamaño
+    img.crossOrigin = "";
+    img.src = 'ARAUCO.png';
 
     let acumuladorInfo = "";
     const sufijo = elemento.dataset.sufijo;
@@ -44,7 +49,6 @@ function genPDF() {
       if (index > 0) {
         pdf.addPage();
         yPosTexto = 20;}}
-
     // Insertar texto
     const maxLineLength = 190;
     observaciones = pdf.splitTextToSize(observaciones, maxLineLength);
@@ -71,7 +75,6 @@ function genPDF() {
       pdf.addImage(this.src, "JPEG", xPosImagenes, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16);}};
      img.onerror = function () {
     console.error("Error al cargar la imagen");};});
-
   // Guardar el PDF cuando las imágenes se hayan cargado
   Promise.all(bases.map(img => new Promise((resolve, reject) => {
     const image = new Image();
