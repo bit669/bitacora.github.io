@@ -10,7 +10,7 @@ function genPDF() {
   elementos.forEach(function (elemento, index) {
     // Encabezado y contenido
     pdf.setFillColor(31, 79, 120); // Relleno azul
-    pdf.rect(0, 0, pdf.internal.pageSize.width, 23, 'F'); // Largo del encabezado
+    pdf.rect(0, 0, pdf.internal.pageSize.width, 22, 'F'); // Largo del encabezado
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(25); // Tamaño del texto
     pdf.text(8, 14, "Bitácora de turno " + Bitácora);
@@ -21,7 +21,7 @@ function genPDF() {
     const imagenes = window.imagenes; // Asegúrate de que este arreglo contenga las imágenes en base64
     if (imagenes.length > 0) {
       const headerImg = imagenes[0]; // Usar la primera imagen del arreglo para el encabezado
-      pdf.addImage(headerImg, 'JPEG', 155, 2, 50, 18);}
+      pdf.addImage(headerImg, 'JPEG', 140, 2, 50, 18);}
 
     let acumuladorInfo = "";
     const sufijo = elemento.dataset.sufijo;
