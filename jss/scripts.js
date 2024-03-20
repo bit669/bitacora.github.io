@@ -81,27 +81,26 @@ $(document).ready(async function(){
         $(this).parent().remove();});});});
 
 
-
+window.onload = function() {
+    // Asignar la ruta de la imagen al elemento 'img' con id 'imagenLocal'
+    document.getElementById('imagenLocal').src = 'ARAUCO.png';};
+  
 // Función para cargar una imagen desde una ruta local y convertirla a base64
-function cargarImagenLocalYConvertirABase64(rutaLocal) {
+function cargarImagenLocalYConvertirABase64() {
     return new Promise((resolve, reject) => {
-        var img = new Image();
-        img.setAttribute('crossOrigin', 'anonymous'); // Tratar con imágenes de dominio cruzado
+        // Referenciar el elemento 'img' que ya tiene asignada la ruta de la imagen
+        var img = document.getElementById('imagenLocal');
         img.onload = function () {
-            var canvas = document.createElement('canvas');
-            canvas.width = this.width;
-            canvas.height = this.height;
-            var ctx = canvas.getContext('2d');
-            ctx.drawImage(this, 0, 0);
-            var dataURL = canvas.toDataURL('image/png');
-            resolve(dataURL);
-        };
-        img.onerror = function () {
-            reject(new Error('No se pudo cargar la imagen'));
-        };
-        img.src = rutaLocal;
-    });
-}
+        var canvas = document.createElement('canvas');
+        canvas.width = this.width;
+        canvas.height = this.height;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(this, 0, 0);
+        var dataURL = canvas.toDataURL('image/png');
+        resolve(dataURL);};
+    img.onerror = function () {
+        reject(new Error('No se pudo cargar la imagen'));};
+    img.src = rutaLocal;});}
 
 // Arreglo para almacenar las imágenes en base64
 var imagenes = [];
@@ -110,8 +109,6 @@ cargarImagenLocalYConvertirABase64('ARAUCO.png')
     .then(base64 => {
         // Cargar la imagen en el arreglo 'imagenes'
         imagenes.push(base64);
-        console.log('Imagen cargada en el arreglo:', base64);
-    })
+        console.log('Imagen cargada en el arreglo:', base64);})
     .catch(error => {
-        console.error('Error al cargar la imagen:', error);
-    });
+        console.error('Error al cargar la imagen:', error);});
