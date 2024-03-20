@@ -21,7 +21,7 @@ function genPDF() {
     const imagenes = window.imagenes; // Asegúrate de que este arreglo contenga las imágenes en base64
     if (imagenes.length > 0) {
       const headerImg = imagenes[0]; // Usar la primera imagen del arreglo para el encabezado
-      pdf.addImage(headerImg, 'JPEG', 160, 2, 30, 10);}
+      pdf.addImage(headerImg, 'JPEG', 160, 2, 35, 15);}
 
     let acumuladorInfo = "";
     const sufijo = elemento.dataset.sufijo;
