@@ -17,16 +17,16 @@ function genPDF() {
   const elementos = document.querySelectorAll('[data-sufijo]');
   const pdf = new jsPDF();
   let yPosTexto = 20; let yPosImagenes = 10; let xPosImagenes = 42;
+  // Encabezado y contenido
+  pdf.setFillColor(31, 79, 120); // Relleno azul
+  pdf.rect(0, 0, pdf.internal.pageSize.width, 23, 'F'); // Largo del encabezado
+  pdf.setTextColor(255, 255, 255);
+  pdf.setFontSize(25); // Tamaño del texto
+  pdf.text(8, 14, "Bitácora de turno " + Bitácora);
   // Leer el archivo base.txt
   fetch('base.txt')
     .then(response => response.text())
     .then(miFuenteBase64 => {
-      // Encabezado y contenido
-      pdf.setFillColor(31, 79, 120); // Relleno azul
-      pdf.rect(0, 0, pdf.internal.pageSize.width, 23, 'F'); // Largo del encabezado
-      pdf.setTextColor(255, 255, 255);
-      pdf.setFontSize(25); // Tamaño del texto
-      pdf.text(8, 14, "Bitácora de turno " + Bitácora);
       // Agregar la fuente al VFS y registrarla en jsPDF
       agregarFuenteAlVFS(pdf, miFuenteBase64);
       registrarFuente(pdf, 'NombreFuente');
