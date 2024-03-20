@@ -14,6 +14,8 @@ function genPDF() {
   pdf.setTextColor(255, 255, 255);
   pdf.setFontSize(25); // Tamaño del texto
   pdf.text(8, 14, "Bitácora de turno " + Bitácora);
+  pdf.setFillColor(255, 255, 255); // Blanco
+  pdf.setTextColor(0, 0, 0); // Negro
   pdf.setFontSize(17);
   
   elementos.forEach(function (elemento, index) {
