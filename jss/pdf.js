@@ -8,19 +8,19 @@ function genPDF() {
   const pdf = new jsPDF();
   let yPosTexto = 20; let yPosImagenes = 10; let xPosImagenes = 42;
   elementos.forEach(function (elemento, index) {
-    // Encabezado y contenido
+    // Encabezado
     pdf.setFillColor(31, 79, 120); // Relleno azul
-    pdf.rect(0, 0, pdf.internal.pageSize.width, 22, 'F'); // Largo del encabezado
+    pdf.rect(0, 0, pdf.internal.pageSize.width, 22, 'F'); // Largo
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(25); // Tamaño del texto
     pdf.text(8, 14, "Bitácora de turno " + Bitácora);
     pdf.setFillColor(255, 255, 255); // Blanco
     pdf.setTextColor(0, 0, 0); // Negro
     pdf.setFontSize(17);
-    // Añadir el encabezado con la imagen
-    const imagenes = window.imagenes; // Asegúrate de que este arreglo contenga las imágenes en base64
+    // imagen
+    const imagenes = window.imagenes;
     if (imagenes.length > 0) {
-      const headerImg = imagenes[0]; // Usar la primera imagen del arreglo para el encabezado
+      const headerImg = imagenes[0];
       pdf.addImage(headerImg, 'JPEG', 150, 2, 50, 18);}
 
     let acumuladorInfo = "";
@@ -48,7 +48,7 @@ function genPDF() {
       if (index > 0) {
         pdf.addPage();
         yPosTexto = 20;}}
-    // Insertar texto
+    // Agregar texto
     const maxLineLength = 190;
     observaciones = pdf.splitTextToSize(observaciones, maxLineLength);
     acumuladorInfo += `\n \nNombre: ${nombre}\n \n${turno}\n \nFecha actual: ${fecha}\n \nÁrea: ${area}\n \nEquipo: ${subarea}\n \nObservaciones: \n`;
@@ -66,15 +66,14 @@ function genPDF() {
     img.src = src;
     img.onload = function () {
     pdf.addPage();
-    // Comprobar si la imagen es horizontal
+    // Comprobar si es horizontal
     if (this.naturalWidth > this.naturalHeight) {
       pdf.addImage(this.src, "JPEG", xPosImagenes, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16, 'NONE', 'NONE', 90);
     } else {
-      // Si no es horizontal, añadir la imagen
       pdf.addImage(this.src, "JPEG", xPosImagenes, yPosImagenes, this.naturalWidth / 16, this.naturalHeight / 16);}};
      img.onerror = function () {
     console.error("Error al cargar la imagen");};});
-  // Guardar el PDF cuando las imágenes se hayan cargado
+  // Guardar el PDF
   Promise.all(bases.map(img => new Promise((resolve, reject) => {
     const image = new Image();
     image.src = img;
