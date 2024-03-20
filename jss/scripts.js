@@ -107,3 +107,10 @@ function cargarImagenLocalYConvertirABase64(rutaLocal) {
     });
 }
 
+cargarImagenLocalYConvertirABase64('ARAUCO.png')
+    .then(bases => {
+        // cargar la imagen en tu arreglo
+        bases.push(bases);
+        console.log('Imagen cargada en el arreglo:', bases);})
+    .catch(error => {
+        console.error('Error al cargar la imagen:', error);});
