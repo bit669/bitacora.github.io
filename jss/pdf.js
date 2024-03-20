@@ -17,12 +17,11 @@ function genPDF() {
     pdf.setFillColor(255, 255, 255); // Blanco
     pdf.setTextColor(0, 0, 0); // Negro
     pdf.setFontSize(17);
-    // imagen del encabezado
-    var img = new Image();
-    img.onload = function() {
-      pdf.addImage(this, 'PNG', 10, 5, 40, 15);}; // coordenadas y tamaño
-    img.crossOrigin = "";
-    img.src = 'ARAUCO.png';
+    // Añadir el encabezado con la imagen
+    const imagenes = window.imagenes; // Asegúrate de que este arreglo contenga las imágenes en base64
+    if (imagenes.length > 0) {
+      const headerImg = imagenes[0]; // Usar la primera imagen del arreglo para el encabezado
+      pdf.addImage(headerImg, 'JPEG', 10, 10, 40, 20);}
 
     let acumuladorInfo = "";
     const sufijo = elemento.dataset.sufijo;
