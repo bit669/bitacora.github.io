@@ -1,14 +1,5 @@
 function genPDF() {
-  // Esta función leerá el contenido de base.txt y lo usará para agregar la fuente al VFS
-  function agregarFuenteAlVFS(pdf, miFuenteBase64) {
-    pdf.addFileToVFS('miFuente.ttf', miFuenteBase64);}
-  // Esta función registrará la fuente en jsPDF
-  function registrarFuente(pdf, nombreFuente) {
-    pdf.addFont('miFuente.ttf', nombreFuente, 'normal');}
-  // Esta función establecerá la fuente en el documento
-  function establecerFuente(pdf, nombreFuente) {
-    pdf.setFont(nombreFuente);}
-  // Aquí comienza la creación del documento PDF
+
   let prevNombre = null; let prevTurno = null; let prevFecha = null;
   const Bitácora = document.getElementById("Bitácora").value;
   const nombre = document.getElementById("nombre").value;
@@ -61,23 +52,6 @@ function genPDF() {
     prevTurno = currentValues;
     prevFecha = currentValues;});
     const bases = window.bases;
-
-      // Leer el archivo base.txt
-  fetch('base.txt')
-  .then(response => response.text())
-  .then(miFuenteBase64 => {
-    // Agregar la fuente al VFS y registrarla en jsPDF
-    agregarFuenteAlVFS(pdf, miFuenteBase64);
-    registrarFuente(pdf, 'NombreFuente');
-    // Establecer la fuente personalizada para un segmento de texto
-    establecerFuente(pdf, 'NombreFuente');
-    pdf.text(150, 14, "arauco");
-    // Continuar con la fuente predeterminada
-    pdf.setFont('helvetica');
-    pdf.setFontType('normal');
-    pdf.setFontSize(17);})
-  .catch(error => console.error('Error al leer el archivo base.txt:', error
-  ));
 
   // Añadir imágenes al final
   bases.forEach(src => {
