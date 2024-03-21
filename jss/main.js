@@ -134,8 +134,6 @@ function crearElementoTarea() {
         </label><br>
         <textarea id="observaciones_${sufijo}" name="observaciones_${sufijo}" required rows="2"></textarea>
     </div>
-
-    
     <div class="container_${sufijo}">
     <section id="Images" class="images-cards">
     <form action="upload.php" method="post" enctype="multipart/form-data">
@@ -150,7 +148,6 @@ function crearElementoTarea() {
 </form>
     </section>
 </div>
-
 `;
   // Asignar evento directamente desde JavaScript
   let areaSelect = tareaDiv.querySelector(`#area_${sufijo}`);
