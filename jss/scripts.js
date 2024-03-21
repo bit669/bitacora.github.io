@@ -103,10 +103,8 @@ async function cargarImagenLocalYConvertirABase64() {
     });
 }
 
-// Arreglo para almacenar las imágenes en base64
 var imagenes = [];
 
-// Función autoinvocada para usar async/await
 (async () => {
     try {
         const base64 = await cargarImagenLocalYConvertirABase64();
